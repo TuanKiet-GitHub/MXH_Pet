@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">HONEYBEE</string>
+    <string name="welcome">CHÀO MỪNG ĐẾN VỚI PETCOM</string>
+    <string name="email">Nhập địa chỉ email </string>
+    <string name="name">Nhập họ và tên của bạn</string>
+    <string name="password">Nhập mật khẩu</string>
+    <string name="password2">Nhập lại mật khẩu</string>
+    <string name="forgotFassWord">Bạn đã quên mật khẩu ?</string>
+    <string name="Login">Đăng nhập</string>
+    <string name="send">Gửi</string>
+    <string name="next">Tiếp theo</string>
+    <string name="verification">Vui lòng nhập mã xác nhận</string>
+    <string name="codeSMS">Mã SMS là bắt buộc để xác minh danh tính của bạn</string>
+    <string name="ImportSDT">Vui lòng nhập số điện thoại của bạn</string>
+    <string name="combackImportSDT"> Quay lại trang nhập số điện thoại</string>
+    <string name="haveAccount"> Tôi đã có tài khoản ! Đăng nhập </string>
+    <string name="registration"> Bạn chưa có tài khoản ? Đăng kí ngay </string>
+    <string name="checkPass"> Mật khẩu nhập lại không trùng xin vui lòng kiểm tra lại !!! </string>
+    <string name="importSMS"> Vui lòng nhập mã SMS bên dưới !!! </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

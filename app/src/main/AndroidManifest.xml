@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pet">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Pet">
+        <activity android:name=".mode.Home.StatusActivity"></activity>
+        <activity
+            android:name=".mode.DKDN.Home"
+            android:theme="@style/Theme.Design.NoActionBar"/>
+        <activity
+            android:name=".mode.DKDN.Registration"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".mode.DKDN.Login"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".mode.DKDN.MainPage"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".mode.DKDN.MainActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "661737457317",
+    "firebase_url": "https://pettttt-36ce4.firebaseio.com",
+    "project_id": "pettttt-36ce4",
+    "storage_bucket": "pettttt-36ce4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661737457317:android:95596ffc5c2de7e96c6f4c",
+        "android_client_info": {
+          "package_name": "com.example.pet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661737457317-earh807flk4ro59oin0sjsjt6rkcqbvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd7m4Jdr-HF6Z7pwoqCskaAwZcyUbU3qI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661737457317-earh807flk4ro59oin0sjsjt6rkcqbvj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

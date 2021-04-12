@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    tools:context=".mode.DKDN.MainPage">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/welcome" />
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_height="wrap_content"></ImageView>
+    />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:src="@drawable/text"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/txtDangNhap"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:background="@drawable/custom_nut_dangnhap"
+        android:text = "@string/Login"
+        app:backgroundTint="@color/yellowmain"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvDangKi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="15dp"
+        android:text= "@string/registration"
+        android:textColor="@color/blue_text"
+        app:backgroundTint="@color/black"/>
+
+
+
+
+</LinearLayout>
