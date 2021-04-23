@@ -1,4 +1,4 @@
-package com.example.pet.mode.Home;
+package com.example.pet.mode.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,15 +6,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.pet.R;
-import com.example.pet.mode.Adapter.ItemAdapter;
-import com.example.pet.mode.Mode.Item;
+import com.example.pet.mode.activities.StatusActivity;
+import com.example.pet.mode.adapters.ItemAdapter;
+import com.example.pet.mode.models.Item;
 
 import java.util.ArrayList;
 

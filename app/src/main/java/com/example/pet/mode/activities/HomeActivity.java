@@ -1,4 +1,4 @@
-package com.example.pet.mode.DKDN;
+package com.example.pet.mode.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,12 +10,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.pet.R;
-import com.example.pet.mode.Home.LoveFragment;
-import com.example.pet.mode.Home.MessageFragment;
-import com.example.pet.mode.Home.ProfileFragment;
-import com.example.pet.mode.Home.SquareFragment;
+import com.example.pet.mode.home.LoveFragment;
+import com.example.pet.mode.home.MessageFragment;
+import com.example.pet.mode.home.ProfileFragment;
+import com.example.pet.mode.home.SquareFragment;
 
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     Button btnSquare , btnLove , btnMessage , btnProfile , btnHome;
     LinearLayout linerSquare , linearLove , linerMessage , linerProfile ;
     Fragment fragment ;

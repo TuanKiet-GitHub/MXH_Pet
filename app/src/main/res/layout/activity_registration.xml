@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:gravity="center"
-    tools:context=".mode.DKDN.Registration">
+    tools:context=".mode.activities.RegistrationActivity">
     <LinearLayout
         android:layout_width="wrap_content"
         android:gravity="center"

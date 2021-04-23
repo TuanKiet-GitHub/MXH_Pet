@@ -1,4 +1,4 @@
-package com.example.pet.mode.Adapter;
+package com.example.pet.mode.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pet.R;
-import com.example.pet.mode.Mode.Model;
+import com.example.pet.mode.models.Model;
 
 import java.util.ArrayList;
 

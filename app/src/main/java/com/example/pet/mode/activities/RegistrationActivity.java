@@ -1,4 +1,4 @@
-package com.example.pet.mode.DKDN;
+package com.example.pet.mode.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pet.R;
+import com.example.pet.mode.models.UserClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Registration extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
     EditText  edEmail , edPassWord , edPassWord2 , edName;
     TextView tvHavaAccount ;
     Button btnNext ;
@@ -124,7 +125,7 @@ public class Registration extends AppCompatActivity {
                                                //    startActivity(intent);
                                            } else {
 
-                                               Toast toast = Toast.makeText(Registration.this, "Miật khẩu nhập lại không chính xác vu lòng kiểm tra lại !!! ", Toast.LENGTH_LONG);
+                                               Toast toast = Toast.makeText(RegistrationActivity.this, "Miật khẩu nhập lại không chính xác vu lòng kiểm tra lại !!! ", Toast.LENGTH_LONG);
                                                toast.show(); // nhớ show ra nhe
                                            }
 
@@ -135,7 +136,7 @@ public class Registration extends AppCompatActivity {
         tvHavaAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Registration.this , Login.class);
+                Intent intent = new Intent(RegistrationActivity.this , LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

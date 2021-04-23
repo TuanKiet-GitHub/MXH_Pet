@@ -1,11 +1,10 @@
-package com.example.pet.mode.DKDN;
+package com.example.pet.mode.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pet.R;
@@ -25,7 +24,7 @@ public class MainPage extends AppCompatActivity {
         tvRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this , Registration.class);
+                Intent intent = new Intent(MainPage.this , RegistrationActivity.class);
                 startActivity(intent);
                 finish();
 
@@ -34,7 +33,7 @@ public class MainPage extends AppCompatActivity {
         txtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this , Login.class);
+                Intent intent = new Intent(MainPage.this , LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,4 +1,4 @@
-package com.example.pet.mode.DKDN;
+package com.example.pet.mode.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText edEmail, edPassWord;
     Button btnLogin;
     FirebaseAuth mAuth;
@@ -41,12 +41,12 @@ public class Login extends AppCompatActivity {
 
                 if (email.isEmpty()) {
                     //     Toast.makeText(Login.this, "Name " + name, Toast.LENGTH_LONG).show();
-                    Toast.makeText(Login.this, "Mật khẩu không được bỏ trống !!! " , Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Mật khẩu không được bỏ trống !!! " , Toast.LENGTH_LONG).show();
                     edEmail.requestFocus();
                     return;
                 }
                 if (passWord.isEmpty()) {
-                    Toast.makeText(Login.this, "Mật khẩu không được bỏ trống !!! " , Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Mật khẩu không được bỏ trống !!! " , Toast.LENGTH_LONG).show();
                     edPassWord.requestFocus();
                     return;
                 }
@@ -54,10 +54,10 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(getApplication(), Home.class);
+                            Intent intent = new Intent(getApplication(), HomeActivity.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(Login.this, "ĐĂNG NHẬP THẤT BẠI !!! ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "ĐĂNG NHẬP THẤT BẠI !!! ", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

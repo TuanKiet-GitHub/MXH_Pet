@@ -1,4 +1,4 @@
-package com.example.pet.mode.Home;
+package com.example.pet.mode.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.pet.R;
-import com.example.pet.mode.DKDN.Home;
+import com.example.pet.mode.activities.HomeActivity;
 
 public class StatusActivity extends AppCompatActivity {
     EditText edStatus ;
@@ -38,7 +38,7 @@ public class StatusActivity extends AppCompatActivity {
         imgBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Home.class);
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
             }
         });

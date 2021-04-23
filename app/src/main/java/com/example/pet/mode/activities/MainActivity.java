@@ -1,4 +1,4 @@
-package com.example.pet.mode.DKDN;
+package com.example.pet.mode.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

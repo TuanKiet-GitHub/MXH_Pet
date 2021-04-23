@@ -1,4 +1,4 @@
-package com.example.pet.mode.DKDN;
+package com.example.pet.mode.models;
 
 public class UserClass {
      String username , password  , email ;

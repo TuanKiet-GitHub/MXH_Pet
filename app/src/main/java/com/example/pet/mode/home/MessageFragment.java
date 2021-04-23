@@ -1,4 +1,4 @@
-package com.example.pet.mode.Home;
+package com.example.pet.mode.home;
 
 import android.os.Bundle;
 
@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pet.R;
-import com.example.pet.mode.Adapter.ChatAdapter;
-import com.example.pet.mode.Mode.Chat;
+import com.example.pet.mode.adapters.ChatAdapter;
+import com.example.pet.mode.models.Chat;
 
 import java.util.ArrayList;
 

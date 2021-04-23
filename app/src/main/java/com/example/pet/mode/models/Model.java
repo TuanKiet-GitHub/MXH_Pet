@@ -1,4 +1,4 @@
-package com.example.pet.mode.Mode;
+package com.example.pet.mode.models;
 
 public class Model {
     int image ;
