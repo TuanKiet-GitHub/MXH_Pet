@@ -35,10 +35,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         View view = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
         recyclerView =  view.findViewById(R.id.recyclerViewItem);
         listImage = new ArrayList<>();
-        listImage.add(new Image(R.drawable.meo1));
-        listImage.add(new Image(R.drawable.meo2));
-        listImage.add(new Image(R.drawable.meo3));
-        listImage.add(new Image(R.drawable.meo4));
+
+        listImage.add(new Image("https://i.pinimg.com/736x/d1/32/64/d132644360376beb74abb10578952888.jpg"));
+        listImage.add(new Image("https://i.pinimg.com/736x/d1/32/64/d132644360376beb74abb10578952888.jpg"));
+        listImage.add(new Image("https://i.pinimg.com/736x/d1/32/64/d132644360376beb74abb10578952888.jpg"));
         adapter = new ImageAdapter(parent.getContext(), listImage);
         recyclerView.setAdapter(adapter);
         return new ViewHolder(view);

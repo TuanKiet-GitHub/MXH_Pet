@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item2"></androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/item_image"></androidx.recyclerview.widget.RecyclerView>
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
