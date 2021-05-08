@@ -22,6 +22,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     private Context context;
     private ArrayList<Image> listSanPham;
+    private int key;
 
    private static OnItemClickListener listener;
 
@@ -29,9 +30,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         void onItemClick(View itemView, int position);
     }
 
-    public ImageAdapter(Context context, ArrayList<Image> listSanPham) {
+    public ImageAdapter(Context context, ArrayList<Image> listSanPham, int key) {
         this.context = context;
         this.listSanPham = listSanPham;
+        this.key = key;
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
@@ -69,28 +71,34 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             image = itemView.findViewById(R.id.imageItem2);
             cardView = itemView.findViewById(R.id.card);
             chosen = itemView.findViewById(R.id.chosen);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null){
-                        listener.onItemClick(itemView, getLayoutPosition());
-                    }else {
-                        boolean isCheck =listSanPham.get(getLayoutPosition()).isChosen();
+           if(key ==1 ){
+               itemView.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       if (listener != null){
+                           listener.onItemClick(itemView, getLayoutPosition());
+                       }else {
+                           boolean isCheck =listSanPham.get(getLayoutPosition()).isChosen();
 
-                        if(isCheck){
-                            listSanPham.get(getLayoutPosition()).setChosen(!isCheck);
-                            cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 100);
-                            cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 100);
-                            chosen.setVisibility(View.GONE);
-                        } else {
-                            listSanPham.get(getLayoutPosition()).setChosen(!isCheck);
-                            cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 80);
-                            cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 80);
-                            chosen.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-            });
+                           if(isCheck){
+                               listSanPham.get(getLayoutPosition()).setChosen(!isCheck);
+                               cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 100);
+                               cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 100);
+                               chosen.setVisibility(View.GONE);
+                           } else {
+                               listSanPham.get(getLayoutPosition()).setChosen(!isCheck);
+                               cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 80);
+                               cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 80);
+                               chosen.setVisibility(View.VISIBLE);
+                           }
+                       }
+                   }
+               });
+           }else {
+               cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 140);
+               cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 140);
+               image.setScaleType(ImageView.ScaleType.CENTER);
+           }
         }
     }
 

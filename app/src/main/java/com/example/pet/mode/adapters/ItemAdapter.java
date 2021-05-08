@@ -39,7 +39,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         listImage.add(new Image("https://i.pinimg.com/736x/d1/32/64/d132644360376beb74abb10578952888.jpg"));
         listImage.add(new Image("https://i.pinimg.com/736x/d1/32/64/d132644360376beb74abb10578952888.jpg"));
         listImage.add(new Image("https://i.pinimg.com/736x/d1/32/64/d132644360376beb74abb10578952888.jpg"));
-        adapter = new ImageAdapter(parent.getContext(), listImage);
+        adapter = new ImageAdapter(parent.getContext(), listImage, 1);
         recyclerView.setAdapter(adapter);
         return new ViewHolder(view);
     }
