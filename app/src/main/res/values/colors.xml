@@ -27,4 +27,5 @@
     <color name="yellowmain">#FECE2F</color>
     <color name="yellowmain2">#FFDD78</color>
     <color name="blue_text">#2979FF</color>
+    <color name="link_text">#498CFD</color>
 </resources>
