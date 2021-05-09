@@ -12,11 +12,9 @@
     <string name="verification">Vui lòng nhập mã xác nhận</string>
     <string name="codeSMS">Mã SMS là bắt buộc để xác minh danh tính của bạn</string>
     <string name="enter_phone_number">Vui lòng nhập số điện thoại của bạn</string>
-    <string name="have_account"> Tôi đã có tài khoản ! Đăng nhập </string>
+    <string name="have_account"> <u>Tôi đã có tài khoản ! Đăng nhập</u> </string>
     <string name="registration"> <u>Bạn chưa có tài khoản ? Đăng kí ngay </u></string>
     <string name="check_password"> Mật khẩu nhập lại không trùng xin vui lòng kiểm tra lại !!! </string>
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -1,143 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:gravity="center"
-    tools:context=".mode.activities.RegistrationActivity">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:src="@drawable/welcome01"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/welcome"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:src="@drawable/logo01"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-    <LinearLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="obj"
+            type="com.example.pet.mode.activities.RegistrationActivity" />
+    </data>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="#F6F9FA"
-        android:gravity="center"
-        android:orientation="vertical">
+        tools:context=".mode.activities.RegistrationActivity"
+        android:background="@color/backGround">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vui lòng nhập địa chỉ email và mật khẩu của bạn"
-            android:textColor="@color/blacklight"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:inputType="textEmailAddress"
-            android:id="@+id/edEmail"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:hint="@string/email"
-            android:paddingLeft="10dp"
-            android:textColor="@color/blue"
-            android:textColorHint="@color/blue" />
-        <EditText
-            android:id="@+id/edFullName"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:hint="@string/name"
-            android:paddingLeft="10dp"
-            android:textColor="@color/blue"
-            android:textColorHint="@color/blue" />
-
-        <com.google.android.material.textfield.TextInputLayout
+        <RelativeLayout
+            android:id="@+id/layoutFirstRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            android:layout_marginTop="10dp"
-            app:hintEnabled="false"
-            app:passwordToggleTint="@color/blue"
-            >
+            android:focusable="true">
+
+
+            <include
+                android:id="@+id/logo"
+                layout="@layout/logo" />
+
+            <TextView
+                android:id="@+id/tv_full_name"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Họ Và Tên" />
 
             <EditText
-                android:id="@+id/edPassWord"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/white"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:paddingLeft="10dp"
-                android:textColor="@color/blue"
-                android:textColorHint="@color/blue" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/blue"
-            >
+                android:id="@+id/etFullName"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_full_name"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="aa" />
+
+            <TextView
+                android:id="@+id/tv_nick_name"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etFullName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Tên Hiển Thị" />
+
             <EditText
-                android:inputType="textPassword"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:id="@+id/edPassWord2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white"
-                android:hint="@string/password2"
-                android:paddingLeft="10dp"
-                android:textColor="@color/blue"
-                android:textColorHint="@color/blue"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:id="@+id/etNickName"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_nick_name"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:maxLength="50"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+                android:text="aa"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etNickName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Địa chỉ" />
+
+            <EditText
+                android:id="@+id/etAddress"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_address"
+                android:clickable="true"
+                android:focusable="true"
+                android:maxLength="100"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+                android:text="aa"/>
+
+            <TextView
+                android:id="@+id/tv_age"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etAddress"
+                android:layout_centerHorizontal="true"
+                android:focusable="false"
+                android:layout_marginTop="5dp"
+                android:text="Ngày sinh" />
+
+            <EditText
+                android:id="@+id/etYearBorn"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_age"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:inputType="text"
+                android:text="aa"
+                android:onClick="openDatePicker"/>
 
 
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_nut_dangnhap"
-            android:backgroundTint="@color/yellowmain"
-            android:text="@string/next"
-            android:textColor="@color/black" />
-        <TextView
-            android:id="@+id/tvhaveAccount"
-            android:textColor="@color/blue"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:text="@string/have_account"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_gender"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etYearBorn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Giới tính" />
 
-    </LinearLayout>
 
-</LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/rgGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_gender"
+                android:layout_alignStart="@+id/tv_full_name"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/rgGender"
+                    android:layout_marginEnd="10dp"
+                    android:buttonTint="@color/white"
+                    android:checked="true"
+                    android:text="Nam"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/rbFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/rgGender"
+                    android:buttonTint="@color/white"
+                    android:checked="false"
+                    android:text="Nữ"
+                    android:textColor="@color/white" />
+
+            </RadioGroup>
+            <Button
+                android:id="@+id/btNext"
+                style="@style/btViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rgGender"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/custom_bt_next"
+                android:text="Tiếp tục"
+                android:onClick="clickNext"/>
+        </RelativeLayout>
+    </ScrollView>
+</layout>

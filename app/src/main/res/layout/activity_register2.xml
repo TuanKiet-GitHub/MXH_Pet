@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backGround"
+        tools:context=".mode.activities.RegisterActivity2">
+
+        <RelativeLayout
+            android:id="@+id/layoutSecondRegister"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:focusable="true">
+
+            <Button
+                android:id="@+id/btPrevious"
+                style="@style/btViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/custom_bt_previous"
+                android:text="Trở về" />
+
+
+            <include
+                android:id="@+id/logo"
+                layout="@layout/logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btPrevious" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Email" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_email"
+                android:inputType="textEmailAddress"
+                android:maxLength="50"
+                android:text="nguyenVanA@gmail.com" />
+
+            <TextView
+                android:id="@+id/tv_pass_register"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etEmail"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Password" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/tv_pass_register"
+                android:inputType="textPassword"
+                android:maxLength="50"
+                android:text="1234567" />
+
+                <TextView
+                android:id="@+id/tv_confirm_pass"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Nhập lại mật khẩu" />
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/tv_confirm_pass"
+                android:inputType="textPassword"
+                android:maxLength="50"
+                android:text="1234567" />
+
+            <TextView
+                android:id="@+id/tv_phoneNumber"
+                style="@style/textViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etConfirmPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="Số điện thoại" />
+
+            <EditText
+                android:id="@+id/etPhoneNumber"
+                style="@style/etViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/tv_phoneNumber"
+                android:inputType="phone"
+                android:maxLength="13"
+                android:text="1263456789" />
+            <ProgressBar
+                android:id="@+id/pbRegisterSecond"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="#FFFFFF"
+                android:progressDrawable="@drawable/circle"
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/btSignUpSecond"
+                style="@style/btViewLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etPhoneNumber"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/custom_button"
+                android:onClick="clickRegister"
+                android:text="Đăng Ký" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</layout>
