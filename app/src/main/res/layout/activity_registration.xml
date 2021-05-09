@@ -44,7 +44,8 @@
                 android:focusableInTouchMode="true"
                 android:inputType="text"
                 android:maxLength="50"
-                android:hint="Nguyễn Văn A" />
+                android:hint="Nguyễn Văn A"
+                android:textColorHint="@color/silverText"/>
 
             <TextView
                 android:id="@+id/tv_nick_name"
@@ -68,7 +69,8 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:inputType="text"
-                android:hint="Nguyễn Văn A"/>
+                android:hint="Nguyễn Văn A"
+                android:textColorHint="@color/silverText"/>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -91,7 +93,8 @@
                 android:maxLength="100"
                 android:focusableInTouchMode="true"
                 android:inputType="text"
-                android:hint="Cần Thơ"/>
+                android:hint="Cần Thơ"
+                android:textColorHint="@color/silverText"/>
 
             <TextView
                 android:id="@+id/tv_age"
@@ -114,7 +117,8 @@
                 android:focusable="false"
                 android:focusableInTouchMode="true"
                 android:inputType="text"
-                android:text="17/03/1995"
+                android:hint="17/03/1995"
+                android:textColorHint="@color/silverText"
                 android:onClick="openDatePicker"/>
 
 

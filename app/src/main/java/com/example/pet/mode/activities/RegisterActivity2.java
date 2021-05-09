@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.pet.R;
@@ -36,14 +37,22 @@ public class RegisterActivity2 extends BaseActivity {
     private String TAG = "a";
     private HashMap<String, String> userInfor;
     private SharedPreferences sharedPreferences;
+    private Button btPrevious;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        findViewById(R.id.btPrevious).setOnClickListener(v -> onBackPressed());
         mBinding = DataBindingUtil.setContentView(RegisterActivity2.this, R.layout.activity_register2);
         user = new User();
+
+        btPrevious = findViewById(R.id.btPrevious);
+        btPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void clickRegister(View v) {
