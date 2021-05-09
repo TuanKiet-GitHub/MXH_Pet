@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,16 +14,20 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pet">
-        <activity android:name=".mode.activities.StatusActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".mode.activities.RegisterActivity2">
 
         </activity>
+        <activity
+            android:name=".mode.activities.StatusActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".mode.activities.HomeActivity"
             android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".mode.activities.RegistrationActivity"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/Theme.Design.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".mode.activities.LoginActivity"
             android:theme="@style/Theme.Design.NoActionBar">
@@ -38,9 +42,7 @@
             android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".mode.activities.MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
     </application>
 
 </manifest>

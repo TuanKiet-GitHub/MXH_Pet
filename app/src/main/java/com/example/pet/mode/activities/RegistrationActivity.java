@@ -1,160 +1,78 @@
 package com.example.pet.mode.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.pet.R;
-import com.example.pet.mode.models.UserClass;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.pet.databinding.ActivityRegistrationBinding;
+import com.example.pet.mode.utils.DateFormatUtil;
+import com.example.pet.mode.utils.Utils;
 
-public class RegistrationActivity extends AppCompatActivity {
-    EditText  edEmail , edPassWord , edPassWord2 , edName;
-    TextView tvHavaAccount ;
-    Button btnNext ;
-    FirebaseAuth mAuth ;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
-
+public class RegistrationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+    ActivityRegistrationBinding registrationBinding;
+    private Calendar calendar;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
-        anhXa();
-        mAuth = FirebaseAuth.getInstance();
-
-
-
-        // BẮT SỰ KIỆN KHI NHẤN VÀO EDITTEXT THÌ NÓ SẼ CHỮ HINT SẼ MẤT ĐỂ NGƯỜI DÙNG NHẬP VÀO
-        edEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                edEmail.setHint("");
-            }
-        });
-        edPassWord.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                edPassWord.setHint("");
-            }
-        });
-        edPassWord2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                edPassWord2.setHint("");
-            }
-        });
-        edName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                edName.setHint("");
-            }
-        });
-
-        // CHUYỂN TRANG
-        btnNext.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View view) {
-                   String userName = edName.getText().toString();
-                   String email = edEmail.getText().toString();
-                   String passWord = edPassWord.getText().toString();
-                                           // Lấy dữ liệu editText getText().toString().
-                                           if (userName.isEmpty())
-                                           {
-                                               Toast.makeText(getApplicationContext(), "VUI LÒNG KHÔNG BỎ TRỐNG USERNAME !!!!", Toast.LENGTH_LONG).show();
-                                               return;
-                                           }
-                                           if (email.isEmpty())
-                                           {
-                                               Toast.makeText(getApplicationContext(), "VUI LÒNG KHÔNG BỎ TRỐNG EMAIL !!!!", Toast.LENGTH_LONG).show();
-                                               return;
-                                           }
-
-                                           if (edPassWord.length() <= 7)
-                                           {
-                                               Toast.makeText(getApplicationContext(), "MẬT KHẨU CỦA BẠN QUÁ NGẮN !!!!", Toast.LENGTH_LONG).show();
-                                               return;
-                                           }
-                                           if (edPassWord.getText().toString().equals(edPassWord2.getText().toString())) {
-                                               mAuth.createUserWithEmailAndPassword(email, passWord)
-                                                       .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                                   @Override
-                                                   public void onComplete(@NonNull Task<AuthResult> task) {
-                                                       if (task.isSuccessful()) {
-                                                           UserClass user = new UserClass(email, passWord, userName);
-                                                           FirebaseDatabase.getInstance().getReference("user")
-                                                                   .child(FirebaseAuth.getInstance()
-                                                                   .getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                               @Override
-                                                               public void onComplete(@NonNull Task<Void> task) {
-                                                                   if (task.isSuccessful()) {
-                                                                       Toast.makeText(getApplicationContext(), "BẠN ĐÃ ĐĂNG KÍ TÀI KHOẢN THÀNH CÔNG !!!!", Toast.LENGTH_LONG).show();
-                                                                   } else {
-                                                                       Toast.makeText(getApplicationContext(), "BẠN ĐÃ ĐĂNG KÍ TÀI KHOẢN THẤT BẠI VUI LÒNG THAO TÁC LẠI !!!!", Toast.LENGTH_LONG).show();
-                                                                   }
-                                                               }
-                                                           });
-                                                       } else {
-                                                           Toast.makeText(getApplicationContext(), "BẠN ĐÃ ĐĂNG KÍ TÀI KHOẢN THẤT BẠI VUI LÒNG THAO TÁC LẠI !!!!", Toast.LENGTH_LONG).show();
-                                                       }
-                                                   }
-                                               });
-
-
-                                               // Truyền dữ liệu lên FireBase
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                    DatabaseReference myRef = database.getReference("user");
-//                    String email = edEmail.getText().toString();
-//                    String userName = edName.getText().toString();
-//                    String passWord = edPassWord.getText().toString();
-//                    UserClass user = new UserClass( email , passWord , userName);
-//                    myRef.child("1").setValue(user);
-//                    Intent intent = new Intent(Registration.this , ConfirmSDT.class);
-//                    intent.putExtra("phone" , edSTD.getText().toString());
-                                               //    startActivity(intent);
-                                           } else {
-
-                                               Toast toast = Toast.makeText(RegistrationActivity.this, "Miật khẩu nhập lại không chính xác vu lòng kiểm tra lại !!! ", Toast.LENGTH_LONG);
-                                               toast.show(); // nhớ show ra nhe
-                                           }
-
-                                       }
-                                   });
-
-
-        tvHavaAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this , LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
+        registrationBinding = DataBindingUtil.setContentView(RegistrationActivity.this, R.layout.activity_registration);
+        registrationBinding.setObj(RegistrationActivity.this);
+        registrationBinding.layoutFirstRegister.setOnClickListener(v -> Utils.hideSoftKeyboard(RegistrationActivity.this));
     }
 
+    public void openDatePicker(View view) {
+        calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-
-    void anhXa()
-    {
-        edEmail = findViewById(R.id.edEmail);
-        tvHavaAccount = findViewById(R.id.tvhaveAccount);
-        btnNext = findViewById(R.id.btnNext);
-        edName = findViewById(R.id.edFullName);
-        edPassWord= findViewById(R.id.edPassWord);
-        edPassWord2= findViewById(R.id.edPassWord2);
+        DatePickerDialog dialog = new DatePickerDialog(this, R.style.CustomDatePickerDialogTheme, this, year, month, day);
+        dialog.setTitle("Chọn ngày sinh");
+        dialog.show();
     }
+    public void clickNext(View view) {
 
+        if (validationInputData()) {
+            intent = new Intent(RegistrationActivity.this, RegisterActivity2.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("fullName", registrationBinding.etFullName.getText().toString());
+            bundle.putString("nickName", registrationBinding.etNickName.getText().toString());
+            bundle.putSerializable("yearBorn", DateFormatUtil.formatToServer(registrationBinding.etYearBorn.getText().toString()));
+            bundle.putString("address", registrationBinding.etAddress.getText().toString());
+            bundle.putBoolean("isMale", registrationBinding.rbMale.isChecked());
+            intent.putExtra("data", bundle);
+
+            startActivity(intent);
+        }
+    }
+    public boolean validationInputData() {
+        if (registrationBinding.etFullName.getText().length() == 0) {
+            Toast.makeText(this, "Bạn chưa nhập họ và tên", Toast.LENGTH_SHORT).show();
+            registrationBinding.etFullName.requestFocus();
+            return false;
+        }
+        return true;
+    }
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        calendar.set(year, month, dayOfMonth);
+
+        String myFormat = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        registrationBinding.etYearBorn.setText(sdf.format(calendar.getTime()));
+        Log.e("TAG", "onDateSet: " + calendar.getTime() );
+    }
 }

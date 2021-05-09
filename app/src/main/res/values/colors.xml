@@ -28,4 +28,7 @@
     <color name="yellowmain2">#FFDD78</color>
     <color name="blue_text">#2979FF</color>
     <color name="link_text">#498CFD</color>
+    <color name="backGround">#162950</color>
+    <color name="colorButton">#FFCA18</color>
+    <color name="colorTextLogin">#FFCA18</color>
 </resources>
