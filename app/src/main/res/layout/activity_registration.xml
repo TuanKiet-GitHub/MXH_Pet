@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".mode.activities.RegistrationActivity"
-        android:background="@color/backGround">
+        android:background="@color/white">
 
         <RelativeLayout
             android:id="@+id/layoutFirstRegister"
@@ -44,7 +44,7 @@
                 android:focusableInTouchMode="true"
                 android:inputType="text"
                 android:maxLength="50"
-                android:text="aa" />
+                android:hint="Nguyễn Văn A" />
 
             <TextView
                 android:id="@+id/tv_nick_name"
@@ -68,7 +68,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:inputType="text"
-                android:text="aa"/>
+                android:hint="Nguyễn Văn A"/>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -91,7 +91,7 @@
                 android:maxLength="100"
                 android:focusableInTouchMode="true"
                 android:inputType="text"
-                android:text="aa"/>
+                android:hint="Cần Thơ"/>
 
             <TextView
                 android:id="@+id/tv_age"
@@ -114,7 +114,7 @@
                 android:focusable="false"
                 android:focusableInTouchMode="true"
                 android:inputType="text"
-                android:text="aa"
+                android:text="17/03/1995"
                 android:onClick="openDatePicker"/>
 
 
@@ -145,20 +145,20 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/rgGender"
                     android:layout_marginEnd="10dp"
-                    android:buttonTint="@color/white"
+                    android:buttonTint="@color/black"
                     android:checked="true"
                     android:text="Nam"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/black" />
 
                 <RadioButton
                     android:id="@+id/rbFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/rgGender"
-                    android:buttonTint="@color/white"
+                    android:buttonTint="@color/black"
                     android:checked="false"
                     android:text="Nữ"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/black" />
 
             </RadioGroup>
             <Button
@@ -171,6 +171,7 @@
                 android:layout_alignParentStart="true"
                 android:background="@drawable/custom_bt_next"
                 android:text="Tiếp tục"
+                android:textColor="@color/black"
                 android:onClick="clickNext"/>
         </RelativeLayout>
     </ScrollView>

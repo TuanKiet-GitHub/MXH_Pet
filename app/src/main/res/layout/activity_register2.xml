@@ -5,7 +5,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backGround"
+        android:background="@color/white"
         tools:context=".mode.activities.RegisterActivity2">
 
         <RelativeLayout
@@ -21,7 +21,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/custom_bt_previous"
-                android:text="Trở về" />
+                android:text="Trở về"
+                android:textColor="@color/black"/>
 
 
             <include
@@ -49,7 +50,7 @@
                 android:layout_below="@+id/tv_email"
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
-                android:text="nguyenVanA@gmail.com" />
+                android:hint="nguyenVanA@gmail.com" />
 
             <TextView
                 android:id="@+id/tv_pass_register"
@@ -70,7 +71,7 @@
                 android:layout_below="@+id/tv_pass_register"
                 android:inputType="textPassword"
                 android:maxLength="50"
-                android:text="1234567" />
+                android:hint="1234567" />
 
                 <TextView
                 android:id="@+id/tv_confirm_pass"
@@ -91,7 +92,7 @@
                 android:layout_below="@+id/tv_confirm_pass"
                 android:inputType="textPassword"
                 android:maxLength="50"
-                android:text="1234567" />
+                android:hint="1234567" />
 
             <TextView
                 android:id="@+id/tv_phoneNumber"
@@ -112,7 +113,7 @@
                 android:layout_below="@+id/tv_phoneNumber"
                 android:inputType="phone"
                 android:maxLength="13"
-                android:text="1263456789" />
+                android:hint="01263456789" />
             <ProgressBar
                 android:id="@+id/pbRegisterSecond"
                 style="?android:attr/progressBarStyle"
@@ -131,7 +132,8 @@
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/custom_button"
                 android:onClick="clickRegister"
-                android:text="Đăng Ký" />
+                android:text="Đăng Ký"
+                android:textColor="@color/black"/>
 
 
         </RelativeLayout>

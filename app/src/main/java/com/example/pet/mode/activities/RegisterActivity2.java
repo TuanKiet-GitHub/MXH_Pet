@@ -41,6 +41,7 @@ public class RegisterActivity2 extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        findViewById(R.id.btPrevious).setOnClickListener(v -> onBackPressed());
         mBinding = DataBindingUtil.setContentView(RegisterActivity2.this, R.layout.activity_register2);
         user = new User();
     }
@@ -79,7 +80,6 @@ public class RegisterActivity2 extends BaseActivity {
                                 });
 
                             } else {
-
                                 Toast.makeText(RegisterActivity2.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }

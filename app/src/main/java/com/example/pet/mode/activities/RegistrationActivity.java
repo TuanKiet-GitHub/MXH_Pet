@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class RegistrationActivity extends AppCompatActivity implements DatePicke
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         registrationBinding = DataBindingUtil.setContentView(RegistrationActivity.this, R.layout.activity_registration);
         registrationBinding.setObj(RegistrationActivity.this);
         registrationBinding.layoutFirstRegister.setOnClickListener(v -> Utils.hideSoftKeyboard(RegistrationActivity.this));
