@@ -42,6 +42,7 @@ public class RegisterActivity2 extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(RegisterActivity2.this, R.layout.activity_register2);
+        mBinding.btPrevious.setOnClickListener(v -> finish());
         user = new User();
     }
 
