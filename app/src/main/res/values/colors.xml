@@ -31,4 +31,5 @@
     <color name="backGround">#162950</color>
     <color name="colorButton">#FFCA18</color>
     <color name="colorTextLogin">#FFCA18</color>
+    <color name="my_statusbar_color">#E7970C</color>
 </resources>

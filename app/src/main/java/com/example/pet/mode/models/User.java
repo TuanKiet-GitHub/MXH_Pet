@@ -15,7 +15,7 @@ public class User {
 
     private String full_name;
 
-    private String avatar;
+    private String avatar = "default";
 
     public String getId() {
         return id;
@@ -84,6 +84,20 @@ public class User {
     public User() {
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", nick_name='" + nick_name + '\'' +
+                ", year_born='" + year_born + '\'' +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", full_name='" + full_name + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 
     public String getAvatar() {
         return avatar;

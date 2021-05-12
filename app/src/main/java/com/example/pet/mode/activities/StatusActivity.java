@@ -221,6 +221,7 @@ public class StatusActivity extends AppCompatActivity {
         temp.put("user_id", aNew.getUser_id());
         temp.put("tag", aNew.getTag());
 
+
         SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
         String date = sf.format(Calendar.getInstance().getTime());
         Date date_post_new = null;

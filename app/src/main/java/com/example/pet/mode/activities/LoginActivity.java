@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
 
         sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         String token = sharedPreferences.getString("token", null);
-        if (token != null) {
+        if (token != null && !token.equals("1")) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
         loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
