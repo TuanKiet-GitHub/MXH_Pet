@@ -244,8 +244,14 @@ public class StatusActivity extends AppCompatActivity {
                     putFile(file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    String temp =taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                    databaseReference.child(key_post +"/"+id_new).child("list_image").push().setValue(temp);
+
+                    taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            databaseReference.child(key_post +"/"+id_new).child("list_image").push().setValue(uri.toString());
+                        }
+                    });
+
                 }
             });
         }
