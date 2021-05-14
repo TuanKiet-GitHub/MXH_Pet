@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
 
         sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
         String token = sharedPreferences.getString("token", null);
-        if (token != null) {
+        if (token != null && !token.equals("1")) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
         loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
@@ -60,7 +60,8 @@ public class LoginActivity extends BaseActivity {
                             Intent intent = new Intent(getApplication(), HomeActivity.class);
                             startActivity(intent);
                         } else {
-
+                            enableTouchScreen();
+                            loginBinding.pbRegisterSecond.setVisibility(View.GONE);
                             Toast.makeText(LoginActivity.this, "Mật khẩu hoặc tài khoản không chính xác", Toast.LENGTH_LONG).show();
                         }
                     }
