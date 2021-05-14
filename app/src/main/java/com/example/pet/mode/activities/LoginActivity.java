@@ -60,7 +60,8 @@ public class LoginActivity extends BaseActivity {
                             Intent intent = new Intent(getApplication(), HomeActivity.class);
                             startActivity(intent);
                         } else {
-
+                            enableTouchScreen();
+                            loginBinding.pbRegisterSecond.setVisibility(View.GONE);
                             Toast.makeText(LoginActivity.this, "Mật khẩu hoặc tài khoản không chính xác", Toast.LENGTH_LONG).show();
                         }
                     }

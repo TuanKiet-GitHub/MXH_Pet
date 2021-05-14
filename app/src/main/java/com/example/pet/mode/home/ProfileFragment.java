@@ -38,8 +38,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -66,29 +68,33 @@ public class ProfileFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "1");
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+        if (!token.equals("1")) {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user = snapshot.getValue(User.class);
-                mBinding.setUser(user);
-                mBinding.tvAddress.setText("Addresss: " + user.getAddress());
-                mBinding.tvGender.setText("Gender: " + user.getGender());
-                mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
-                mBinding.tvYear.setText("Year Born: " + user.getYear_born());
-                Log.e("Log", "" + user.toString());
-                if(!user.getAvatar().equals("default")){
-                    Glide.with(getContext()).load(user.getAvatar())
-                            .into(mBinding.avatar);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    user = snapshot.getValue(User.class);
+                    mBinding.setUser(user);
+                    mBinding.tvAddress.setText("Addresss: " + user.getAddress());
+                    mBinding.tvGender.setText("Gender: " + user.getGender());
+                    mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
+                    mBinding.tvYear.setText("Year Born: " + user.getYear_born());
+                    Log.e("Log", "" + user.toString());
+                    if (!user.getAvatar().equals("default") && ProfileFragment.this.getActivity() != null) {
+
+                        Glide.with(getContext()).load(Uri.parse(user.getAvatar()))
+                                .into(mBinding.avatar);
+
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
         mBinding.logout.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -113,11 +119,9 @@ public class ProfileFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-     public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK)
-        {
+        if (resultCode == RESULT_OK) {
             Uri chosenImageUri = data.getData();
 
             Bitmap mBitmap = null;
@@ -130,20 +134,24 @@ public class ProfileFragment extends Fragment {
             }
         }
     }
-    private void uploadImage(Uri uri){
+
+    private void uploadImage(Uri uri) {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference("ListAvatars");
 
         storageReference.child(token).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> url = taskSnapshot.getMetadata().getReference().getDownloadUrl();
-
-
-                Log.e("TAG", "onSuccess: "+ url );
-                FirebaseDatabase.getInstance().getReference("Users").child(token);
-                databaseReference.child("avatar").setValue(url.toString());
+                taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.e("TAG", "onSuccess: " +uri.toString());
+                        FirebaseDatabase.getInstance().getReference("Users").child(token);
+                        databaseReference.child("avatar").setValue(uri.toString());
+                    }
+                });
             }
         });
     }
+
 }
