@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -62,7 +63,6 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         statusBinding = DataBindingUtil.setContentView(this, R.layout.activity_status);
-        getSupportActionBar().hide();
 
         preferences = getSharedPreferences("login", MODE_PRIVATE);
 
@@ -214,12 +214,13 @@ public class StatusActivity extends AppCompatActivity {
         String id_new = uid + miliseconds;
         String content = statusBinding.edStatus.getText().toString();
         aNew = new New(id_new, content, 100, uid,
-                listImage, "#heee");
+                listImage, "#heee", String.valueOf(miliseconds));
         temp.put("id_new", id_new);
         temp.put("content", aNew.getContent());
         temp.put("like", aNew.getLikes() + "");
         temp.put("user_id", aNew.getUser_id());
         temp.put("tag", aNew.getTag());
+        temp.put("time", aNew.getTime());
 
 
         SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
