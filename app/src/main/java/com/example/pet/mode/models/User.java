@@ -1,6 +1,8 @@
 package com.example.pet.mode.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String id;
 
     private String nick_name;

@@ -1,29 +1,22 @@
 package com.example.pet.mode.models;
 
-public class Chat {
-    int image , status ;
-    String name , chat  ;
+import java.io.Serializable;
 
-    public Chat(int image, String name, String chat , int status) {
+public class Chat implements Serializable {
+    String  image  ;
+    String name , lastMessage  ;
+
+    public Chat(String image, String name, String lastMessage) {
         this.image = image;
         this.name = name;
-        this.chat = chat;
-        this.status = status;
+        this.lastMessage = lastMessage;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -35,11 +28,13 @@ public class Chat {
         this.name = name;
     }
 
-    public String getChat() {
-        return chat;
+    public String getLastMessage() {
+        return lastMessage;
     }
 
-    public void setChat(String chat) {
-        this.chat = chat;
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
+
+
 }

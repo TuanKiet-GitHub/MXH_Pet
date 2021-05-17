@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -22,11 +21,9 @@ import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.FragmentProfileBinding;
 import com.example.pet.mode.activities.LoginActivity;
-import com.example.pet.mode.adapters.ItemAdapter;
-import com.example.pet.mode.models.Item;
 import com.example.pet.mode.models.User;
+import com.example.pet.mode.models.Friend;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,10 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -49,13 +43,13 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private DatabaseReference databaseReference;
-
+    public ArrayList<Friend> listFriend = new ArrayList<>();
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private User user;
+    private Friend friend ;
     FragmentProfileBinding mBinding;
     private String token;
-
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -88,14 +82,12 @@ public class ProfileFragment extends Fragment {
 
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
         }
-
         mBinding.logout.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("token", "1");
