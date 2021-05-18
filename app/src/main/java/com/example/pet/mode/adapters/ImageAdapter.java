@@ -72,35 +72,34 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             image = itemView.findViewById(R.id.imageItem2);
             cardView = itemView.findViewById(R.id.card);
             chosen = itemView.findViewById(R.id.chosen);
-            if (key == 1) {
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (listener != null) {
-                            listener.onItemClick(itemView, getLayoutPosition());
-                        } else {
-                            boolean isCheck = listImage.get(getLayoutPosition()).isChosen();
+           if(key ==1 ){
+               itemView.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       if (listener != null){
+                           listener.onItemClick(itemView, getLayoutPosition());
+                       }else {
+                           boolean isCheck =listImage.get(getLayoutPosition()).isChosen();
 
-                            if (isCheck) {
-                                listImage.get(getLayoutPosition()).setChosen(!isCheck);
-                                cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 100);
-                                cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 100);
-                                chosen.setVisibility(View.GONE);
-                            } else {
-                                listImage.get(getLayoutPosition()).setChosen(!isCheck);
-                                cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 80);
-                                cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 80);
-                                chosen.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }
-                });
-            } else {
-                cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 140);
-                cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 140);
-                image.setScaleType(ImageView.ScaleType.CENTER);
-            }
-
+                           if(isCheck){
+                               listImage.get(getLayoutPosition()).setChosen(!isCheck);
+                               cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 100);
+                               cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 100);
+                               chosen.setVisibility(View.GONE);
+                           } else {
+                               listImage.get(getLayoutPosition()).setChosen(!isCheck);
+                               cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 80);
+                               cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 80);
+                               chosen.setVisibility(View.VISIBLE);
+                           }
+                       }
+                   }
+               });
+           }else {
+               cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 140);
+               cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 140);
+               image.setScaleType(ImageView.ScaleType.CENTER);
+           }
         }
     }
 
