@@ -41,7 +41,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
-        String token = sharedPreferences.getString("token", null);
+        String token = Utils.getToken(LoginActivity.this);
         if (token != null && !token.equals("1")) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
@@ -107,13 +107,14 @@ public class LoginActivity extends BaseActivity {
     public void saveInformUser(String token) {
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Log.e(TAG, "saveInformUser: " + token );
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(token);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 String userInfor = new Gson().toJson(user);
+
                 editor.putString("user_infor", userInfor);
                 editor.apply();
             }

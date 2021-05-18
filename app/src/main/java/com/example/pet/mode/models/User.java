@@ -1,5 +1,11 @@
 package com.example.pet.mode.models;
 
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class User {
     private String id;
 
@@ -105,5 +111,12 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    @BindingAdapter("setThumbnail")
+    public static void loadAvatar(CircleImageView view, String url){
+        Glide.with(view.getContext())
+                .load(url)
+                .into(view);
     }
 }

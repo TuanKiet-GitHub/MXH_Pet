@@ -12,10 +12,6 @@ public class Image {
         return image;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public boolean isChosen() {
         return isChosen;
     }

@@ -5,14 +5,19 @@ import java.util.ArrayList;
 public class New {
     private String id;
     private String content;
-    private int likes;
+    private String likes;
     private String user_id;
     private ArrayList<Image> images;
     private String tag;
+    private String time;
 
+
+
+    public New() {
+    }
 
     public New(
-            String id, String content, int likes, String user_id, ArrayList<Image> images, String tag
+            String id, String content, String likes, String user_id, ArrayList<Image> images, String tag, String time
     ) {
         this.id = id;
         this.content = content;
@@ -20,6 +25,15 @@ public class New {
         this.user_id = user_id;
         this.images = images;
         this.tag = tag;
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getId() {
@@ -38,13 +52,6 @@ public class New {
         this.content = content;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
 
     public String getTag() {
         return tag;
@@ -62,6 +69,14 @@ public class New {
         this.user_id = user_id;
     }
 
+    public String getLikes() {
+        return likes;
+    }
+
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
+
     public ArrayList<Image> getImages() {
         return images;
     }
@@ -69,4 +84,5 @@ public class New {
     public void setImages(ArrayList<Image> images) {
         this.images = images;
     }
+
 }

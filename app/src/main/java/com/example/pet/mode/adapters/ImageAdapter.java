@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<Image> listSanPham;
+    private ArrayList<Image> listImage;
     private int key;
 
    private static OnItemClickListener listener;
@@ -30,9 +30,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         void onItemClick(View itemView, int position);
     }
 
-    public ImageAdapter(Context context, ArrayList<Image> listSanPham, int key) {
+    public ImageAdapter(Context context, ArrayList<Image> listImage, int key) {
         this.context = context;
-        this.listSanPham = listSanPham;
+        this.listImage = listImage;
         this.key = key;
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -51,14 +51,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ImageAdapter.ViewHolder holder, int position) {
 
         Glide.with(context)
-                .load(listSanPham.get(position).getImage())
+                .load(listImage.get(position).getImage())
                 .into(holder.image);
 
     }
 
     @Override
     public int getItemCount() {
-        return listSanPham.size();
+        return listImage == null ? 0 : listImage.size();
     }
 
 
@@ -78,15 +78,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                        if (listener != null){
                            listener.onItemClick(itemView, getLayoutPosition());
                        }else {
-                           boolean isCheck =listSanPham.get(getLayoutPosition()).isChosen();
+                           boolean isCheck =listImage.get(getLayoutPosition()).isChosen();
 
                            if(isCheck){
-                               listSanPham.get(getLayoutPosition()).setChosen(!isCheck);
+                               listImage.get(getLayoutPosition()).setChosen(!isCheck);
                                cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 100);
                                cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 100);
                                chosen.setVisibility(View.GONE);
                            } else {
-                               listSanPham.get(getLayoutPosition()).setChosen(!isCheck);
+                               listImage.get(getLayoutPosition()).setChosen(!isCheck);
                                cardView.getLayoutParams().width = (int) Utils.pxFromDp(context, 80);
                                cardView.getLayoutParams().height = (int) Utils.pxFromDp(context, 80);
                                chosen.setVisibility(View.VISIBLE);
