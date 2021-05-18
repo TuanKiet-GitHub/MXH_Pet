@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -22,11 +21,9 @@ import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.FragmentProfileBinding;
 import com.example.pet.mode.activities.LoginActivity;
-import com.example.pet.mode.adapters.ItemAdapter;
-import com.example.pet.mode.models.Item;
 import com.example.pet.mode.models.User;
+import com.example.pet.mode.utils.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,12 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -55,6 +49,7 @@ public class ProfileFragment extends Fragment {
     private User user;
     FragmentProfileBinding mBinding;
     private String token;
+    private String TAG = "";
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -64,41 +59,26 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
-        user = new User();
-        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "1");
 
-        if (!token.equals("1")) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+        token = Utils.getToken(getActivity());
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    user = snapshot.getValue(User.class);
-                    mBinding.setUser(user);
-                    mBinding.tvAddress.setText("Addresss: " + user.getAddress());
-                    mBinding.tvGender.setText("Gender: " + user.getGender());
-                    mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
-                    mBinding.tvYear.setText("Year Born: " + user.getYear_born());
-                    Log.e("Log", "" + user.toString());
-                    if (!user.getAvatar().equals("default") && ProfileFragment.this.getActivity() != null) {
+        user = Utils.getUserInfor(getActivity());
+        mBinding.setUser(user);
+        mBinding.tvAddress.setText("Address: " + user.getAddress());
+        mBinding.tvGender.setText("Gender: " + user.getGender());
+        mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
+        mBinding.tvYear.setText("Year Born: " + user.getYear_born());
+        if (!user.getAvatar().equals("default") && ProfileFragment.this.getActivity() != null) {
+            Glide.with(getContext()).load(Uri.parse(user.getAvatar()))
+                    .into(mBinding.avatar);
 
-                        Glide.with(getContext()).load(Uri.parse(user.getAvatar()))
-                                .into(mBinding.avatar);
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
         }
 
         mBinding.logout.setOnClickListener(v -> {
+            sharedPreferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("token", "1");
+            editor.putString("user_infor", "1");
             editor.apply();
             FirebaseAuth.getInstance().signOut();
 
@@ -145,7 +125,6 @@ public class ProfileFragment extends Fragment {
                 taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Log.e("TAG", "onSuccess: " +uri.toString());
                         FirebaseDatabase.getInstance().getReference("Users").child(token);
                         databaseReference.child("avatar").setValue(uri.toString());
                     }

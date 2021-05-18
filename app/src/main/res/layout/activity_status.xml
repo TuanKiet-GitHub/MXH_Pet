@@ -9,7 +9,8 @@
         android:background="@color/white"
         android:clickable="true"
         android:orientation="vertical"
-        tools:context=".mode.activities.StatusActivity">
+        tools:context=".mode.activities.StatusActivity"
+        android:focusable="true">
 
         <RelativeLayout
             android:id="@+id/choose_image"

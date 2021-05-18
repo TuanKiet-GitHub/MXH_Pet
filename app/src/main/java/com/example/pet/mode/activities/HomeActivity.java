@@ -13,7 +13,7 @@ import com.example.pet.R;
 import com.example.pet.mode.home.LoveFragment;
 import com.example.pet.mode.home.MessageFragment;
 import com.example.pet.mode.home.ProfileFragment;
-import com.example.pet.mode.home.SquareFragment;
+import com.example.pet.mode.home.MainPageFragment;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnSquare , btnLove , btnMessage , btnProfile , btnHome;
@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         anhxa();
         // Mới vào thì home Fragment xuất hiện đầu tiên
-        fragment = new SquareFragment();
+        fragment = new MainPageFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,
                 fragment).commit();
         btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong01), null, null);
@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
                 btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim), null, null);
                 btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi), null, null);
 
-                fragment = new SquareFragment();
+                fragment = new MainPageFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame,
                         fragment).commit();
             }

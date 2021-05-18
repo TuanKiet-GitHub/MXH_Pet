@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -50,6 +51,7 @@ public class StatusActivity extends AppCompatActivity {
     private ActivityStatusBinding statusBinding;
     private ImageAdapter imageAdapter;
     private ArrayList<Image> listImageResourse, listImage;
+
     private FirebaseAuth auth;
     private DatabaseReference databaseReference;
     private New aNew;
@@ -62,7 +64,6 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         statusBinding = DataBindingUtil.setContentView(this, R.layout.activity_status);
-        getSupportActionBar().hide();
 
         preferences = getSharedPreferences("login", MODE_PRIVATE);
 
@@ -71,6 +72,7 @@ public class StatusActivity extends AppCompatActivity {
 
         listImageResourse = getFilePaths();
         listImage = new ArrayList<>();
+
         imageAdapter = new ImageAdapter(this, listImageResourse, 1);
 
         statusBinding.rvListImage.setAdapter(imageAdapter);
@@ -208,31 +210,27 @@ public class StatusActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("News");
 
         HashMap<String, String> temp = new HashMap<>();
-
+        SimpleDateFormat sf = new SimpleDateFormat("hh:mm dd-MM-yyyy");
+        SimpleDateFormat sf1 = new SimpleDateFormat("dd-MM-yyyy");
+        String date = sf.format(Calendar.getInstance().getTime());
+        String key_date = sf1.format(Calendar.getInstance().getTime());
+        Log.e(TAG, "postNew: " + date);
         long miliseconds = Calendar.getInstance().getTimeInMillis();
-        String uid = preferences.getString("user_id", "");
+        String uid = preferences.getString("token", "");
         String id_new = uid + miliseconds;
         String content = statusBinding.edStatus.getText().toString();
-        aNew = new New(id_new, content, 100, uid,
-                listImage, "#heee");
-        temp.put("id_new", id_new);
+
+        aNew = new New(id_new, content, "100", uid,
+                listImage, "#heee", date);
+        temp.put("id", id_new);
         temp.put("content", aNew.getContent());
-        temp.put("like", aNew.getLikes() + "");
+        temp.put("likes", aNew.getLikes() + "");
         temp.put("user_id", aNew.getUser_id());
         temp.put("tag", aNew.getTag());
+        temp.put("time", aNew.getTime());
 
 
-        SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
-        String date = sf.format(Calendar.getInstance().getTime());
-        Date date_post_new = null;
-        try {
-            date_post_new = sf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        long key_post = date_post_new.getTime();
-        databaseReference.child(String.valueOf(key_post)).child(id_new).setValue(temp);
+        databaseReference.child(key_date).child(id_new).setValue(temp);
 
         //upload image
         storage = FirebaseStorage.getInstance();
@@ -248,14 +246,14 @@ public class StatusActivity extends AppCompatActivity {
                     taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            databaseReference.child(key_post +"/"+id_new).child("list_image").push().setValue(uri.toString());
+
+                            databaseReference.child(key_date + "/" + id_new).child("list_image").push().setValue(uri.toString());
                         }
                     });
 
                 }
             });
         }
-
 
 
     }

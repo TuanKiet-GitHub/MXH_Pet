@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 
@@ -72,9 +73,11 @@ public class RegisterActivity2 extends BaseActivity {
                                 user.setId(mUser.getUid());
                                 sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("token", mUser.getUid());
-                                editor.apply();
                                 userInfor = getData();
+                                editor.putString("token", mUser.getUid());
+                                editor.putString("user_infor", new Gson().toJson(userInfor));
+                                editor.apply();
+
                                 reference.child(mUser.getUid()).setValue(userInfor).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -123,7 +126,7 @@ public class RegisterActivity2 extends BaseActivity {
         user.setAddress(address);
         user.setPhone_number(phoneNumber);
         user.setFull_name(fullName);
-        user.setAvatar("a");
+        user.setAvatar("default");
     }
 
     private boolean checkInformation() {

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".mode.home.SquareFragment">
+    tools:context=".mode.home.MainPageFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLove"
-        tools:listitem="@layout/item"
+        tools:listitem="@layout/item_list_news"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
