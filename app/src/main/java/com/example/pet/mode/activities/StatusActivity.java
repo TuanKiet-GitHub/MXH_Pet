@@ -70,13 +70,9 @@ public class StatusActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("News");
 
-        listImageResourse = getFilePaths();
+
         listImage = new ArrayList<>();
 
-        imageAdapter = new ImageAdapter(this, listImageResourse, 1);
-
-        statusBinding.rvListImage.setAdapter(imageAdapter);
-        statusBinding.rvListImage.setLayoutManager(new GridLayoutManager(this, 3));
 
         statusBinding.edStatus.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -103,7 +99,11 @@ public class StatusActivity extends AppCompatActivity {
         statusBinding.btnLoadAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFilePaths();
+                listImageResourse = getFilePaths();
+                imageAdapter = new ImageAdapter(StatusActivity.this, listImageResourse, 1);
+
+                statusBinding.rvListImage.setAdapter(imageAdapter);
+                statusBinding.rvListImage.setLayoutManager(new GridLayoutManager(StatusActivity.this, 3));
                 statusBinding.chooseImage.setVisibility(View.VISIBLE);
             }
         });

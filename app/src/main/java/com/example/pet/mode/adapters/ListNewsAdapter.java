@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.ItemListNewsBinding;
 import com.example.pet.mode.models.Image;
@@ -32,6 +33,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     ImageListNewAdapter adapter;
     String day;
     DatabaseReference databaseReference;
+    int temp = 0;
 
 
     public ListNewsAdapter(Context context, ArrayList<New> list, User user, String day) {
@@ -100,17 +102,33 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
             this.mBinding = itemView;
             recyclerView = itemView.rcvListImage;
 
-            mBinding.like.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    databaseReference = FirebaseDatabase.getInstance().getReference("News").
-                            child(day).child(list.get(getLayoutPosition()).getId());
-
-                    String like = list.get(getLayoutPosition()).getLikes();
-                    int likes = Integer.parseInt(like) + 1;
-                    databaseReference.child("likes").setValue(String.valueOf(likes));
+            itemView.heart.setOnClickListener(v -> {
+                if(temp == 0){
+                    temp = 1;
+                    Glide.with(context)
+                            .load(R.drawable.heartdo)
+                            .into(itemView.heart);
+                }else {
+                    temp = 0;
+                    Glide.with(context)
+                            .load(R.drawable.heartden)
+                            .into(itemView.heart);
                 }
+
             });
+//            itemView.like.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    databaseReference = FirebaseDatabase.getInstance().getReference("News").
+//                            child(day).child(list.get(getLayoutPosition()).getId());
+//
+//                    String like = list.get(getLayoutPosition()).getLikes();
+//                    int likes = Integer.parseInt(like) + 1;
+//                    Log.e("TAG", "onClick: "+ likes );
+//                    list.get(getLayoutPosition()).setLikes(String.valueOf(likes));
+//                    databaseReference.child("likes").setValue(String.valueOf(likes));
+//                }
+//            });
         }
     }
 
