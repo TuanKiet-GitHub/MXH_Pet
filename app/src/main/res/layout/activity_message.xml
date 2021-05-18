@@ -9,8 +9,8 @@
     tools:context=".mode.activities.MessageActivity">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="wrap_content">
+            <LinearLayout
             android:id="@+id/Linertop"
             android:background="@color/yellowmain2"
             android:orientation="horizontal"
@@ -44,12 +44,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/Linertop"
+                android:layout_above="@id/relaSend"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            android:id="@+id/recyclerViewMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
             <RelativeLayout
+                android:id="@+id/relaSend"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@color/silver">
                 <EditText
+                    android:background="@drawable/item_right"
                     android:id="@+id/SendMessage"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"/>

@@ -13,26 +13,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+
 import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.mode.activities.MessageActivity;
-import com.example.pet.mode.home.MessageFragment;
-import com.example.pet.mode.models.Chat;
-
-import androidx.fragment.app.Fragment;
+import com.example.pet.mode.models.UserChat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Chat> list ;
-    public ChatAdapter(Context context, ArrayList<Chat> list) {
+    ArrayList<UserChat> list ;
+    public UserChatAdapter(Context context, ArrayList<UserChat> list) {
         this.context = context;
         this.list = list;
     }
@@ -44,8 +39,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
-        Chat chat = list.get(position);
+    public void onBindViewHolder(@NonNull UserChatAdapter.ViewHolder holder, int position) {
+        UserChat chat = list.get(position);
         Uri uri = Uri.parse(chat.getImage().toString().trim());
         Glide.with(context).load(uri).fitCenter().into(holder.imageView);
        // holder.imageView.setImageResource(chat.getImage());
@@ -74,7 +69,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-             Chat chat = list.get(Integer.parseInt(v.getTag()+""));
+             UserChat chat = list.get(Integer.parseInt(v.getTag()+""));
             Activity activity= (Activity) v.getContext();
             Intent intent = new Intent(activity, MessageActivity.class);
             Bundle bundle = new Bundle();
