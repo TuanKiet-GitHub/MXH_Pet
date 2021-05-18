@@ -62,8 +62,6 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         statusBinding = DataBindingUtil.setContentView(this, R.layout.activity_status);
-       // getSupportActionBar().hide();
-
         preferences = getSharedPreferences("login", MODE_PRIVATE);
 
         auth = FirebaseAuth.getInstance();
