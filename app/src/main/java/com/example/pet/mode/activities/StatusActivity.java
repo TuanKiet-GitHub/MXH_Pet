@@ -71,6 +71,7 @@ public class StatusActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("News");
 
         listImageResourse = getFilePaths();
+
         listImage = new ArrayList<>();
 
         imageAdapter = new ImageAdapter(this, listImageResourse, 1);
