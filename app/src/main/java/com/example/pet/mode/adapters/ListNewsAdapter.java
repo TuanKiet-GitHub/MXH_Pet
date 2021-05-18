@@ -99,6 +99,18 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
 
             this.mBinding = itemView;
             recyclerView = itemView.rcvListImage;
+
+            mBinding.like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    databaseReference = FirebaseDatabase.getInstance().getReference("News").
+                            child(day).child(list.get(getLayoutPosition()).getId());
+
+                    String like = list.get(getLayoutPosition()).getLikes();
+                    int likes = Integer.parseInt(like) + 1;
+                    databaseReference.child("likes").setValue(String.valueOf(likes));
+                }
+            });
         }
     }
 

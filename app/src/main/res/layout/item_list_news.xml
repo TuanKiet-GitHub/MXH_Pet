@@ -119,7 +119,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:src="@drawable/like" />
+                        android:src="@drawable/like"
+                        android:id="@+id/like"
+                        android:focusable="true"
+                        android:clickable="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"
