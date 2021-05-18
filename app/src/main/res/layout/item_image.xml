@@ -14,12 +14,13 @@
         android:layout_marginStart="-10dp"
         android:layout_toEndOf="@+id/card"
         android:src="@drawable/ic_check"
+        android:adjustViewBounds="true"
         android:visibility="gone" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
         android:layout_centerInParent="true"
         android:outlineSpotShadowColor="@color/black"
         app:cardCornerRadius="10dp">
@@ -29,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/space_transparent"
-            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
             android:src="@drawable/meo1" />
     </androidx.cardview.widget.CardView>
 

@@ -29,8 +29,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     private ArrayList<New> list;
     private User user;
     ItemListNewsBinding mBinding;
-    private ArrayList<Image> listImage;
-    ImageAdapter adapter;
+    ImageListNewAdapter adapter;
     String day;
     DatabaseReference databaseReference;
 
@@ -54,17 +53,13 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.mBinding.setUser(user);
         holder.mBinding.setNews(list.get(position));
-        listImage = new ArrayList<>();
-//        for (Image image: list.get(position).getImages()) {
-//           // Log.e("TAG", "ListNewsAdapter: "+image.getContent() );
-//            listImage.add(image);
-//        }
+
         getListImages(position, holder);
 
     }
 
     private void getListImages(int position, MyViewHolder holder ) {
-        ArrayList<Image> arrayList = new ArrayList<>();
+        ArrayList<Image> listImage = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("News").child(day).child(list.get(position).getId()).child("list_image");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -72,10 +67,10 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
             public void onDataChange( DataSnapshot snapshot) {
 
                 for (DataSnapshot s: snapshot.getChildren()) {
-                    arrayList.add(new Image(s.getValue(String.class)));
+                    listImage.add(new Image(s.getValue(String.class)));
 
                 }
-                adapter = new ImageAdapter(context, arrayList, 0);
+                adapter = new ImageListNewAdapter(context, listImage);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
                 holder.mBinding.rcvListImage.setLayoutManager(linearLayoutManager);
                 holder.mBinding.rcvListImage.setAdapter(adapter);
