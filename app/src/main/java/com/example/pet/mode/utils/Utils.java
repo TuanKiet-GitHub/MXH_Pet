@@ -37,9 +37,9 @@ public class Utils {
         return sharedPreferences.getString("token", "1");
     }
 
-    public static String getUserInfor(Activity activity) {
-        sharedPreferences = activity.getSharedPreferences("login", Context.MODE_PRIVATE);
-        String user = sharedPreferences.getString("user_infor", "1");
-        return user;
-    }
+//    public static String getUserInfor(Activity activity) {
+//        sharedPreferences = activity.getSharedPreferences("login", Context.MODE_PRIVATE);
+//        String user = sharedPreferences.getString("user_infor", "1");
+//        return user;
+//    }
 }

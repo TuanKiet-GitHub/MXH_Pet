@@ -35,6 +35,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
@@ -62,26 +64,13 @@ public class ProfileFragment extends Fragment {
 
         token = Utils.getToken(getActivity());
 
-        String temp = Utils.getUserInfor(getActivity());
-        if(!temp.equals("1")){
-            user = new Gson().fromJson(temp, User.class);
-            mBinding.setUser(user);
-            mBinding.tvAddress.setText("Address: " + user.getAddress());
-            mBinding.tvGender.setText("Gender: " + user.getGender());
-            mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
-            mBinding.tvYear.setText("Year Born: " + user.getYear_born());
-            if (!user.getAvatar().equals("default") && ProfileFragment.this.getActivity() != null) {
-                Glide.with(getContext()).load(Uri.parse(user.getAvatar()))
-                        .into(mBinding.avatar);
+        getUser(token);
 
-            }
-        }
 
         mBinding.logout.setOnClickListener(v -> {
             sharedPreferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("token", "1");
-            editor.putString("user_infor", "1");
             editor.apply();
             FirebaseAuth.getInstance().signOut();
 
@@ -136,4 +125,29 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void getUser(String token) {
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                mBinding.setUser(user);
+                mBinding.tvAddress.setText("Address: " + user.getAddress());
+                mBinding.tvGender.setText("Gender: " + user.getGender());
+                mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
+                mBinding.tvYear.setText("Year Born: " + user.getYear_born());
+                if (!user.getAvatar().equals("default") && ProfileFragment.this.getActivity() != null) {
+                    Glide.with(getContext()).load(Uri.parse(user.getAvatar()))
+                            .into(mBinding.avatar);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
 }

@@ -12,13 +12,10 @@ public class User {
     private String nick_name;
 
     private String year_born;
-
     private String gender;
     private String email;
     private String address;
-
     private String phone_number;
-
     private String full_name;
 
     private String avatar = "default";
