@@ -172,7 +172,7 @@ public class RegisterActivity2 extends BaseActivity {
         temp.put("year_born", user.getYear_born());
         temp.put("gender", user.getGender());
         temp.put("email", user.getEmail());
-
+        temp.put("avatar", user.getAvatar());
         return temp;
     }
 }

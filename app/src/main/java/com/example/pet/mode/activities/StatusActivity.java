@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.ActivityStatusBinding;
 import com.example.pet.mode.adapters.ImageAdapter;
+import com.example.pet.mode.home.ProfileFragment;
 import com.example.pet.mode.models.Image;
 import com.example.pet.mode.models.New;
 import com.example.pet.mode.models.User;
@@ -29,12 +30,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.text.ParseException;
@@ -63,6 +69,7 @@ public class StatusActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private User user;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +78,10 @@ public class StatusActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("login", MODE_PRIVATE);
 
-        String temp = Utils.getUserInfor(StatusActivity.this);
-        if (!temp.equals("1")) {
-            user = new Gson().fromJson(temp, User.class);
+        token = Utils.getToken(StatusActivity.this);
+        if (!token.equals("1")) {
 
-            Glide.with(StatusActivity.this)
-                    .load(user.getAvatar())
-                    .into(statusBinding.avatar);
-            statusBinding.name.setText(user.getNick_name());
-
+            getUser(token);
         }
         auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("News");
@@ -273,5 +275,24 @@ public class StatusActivity extends AppCompatActivity {
 
     }
 
+    private void getUser(String token) {
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                Glide.with(StatusActivity.this)
+                        .load(user.getAvatar())
+                        .into(statusBinding.avatar);
+                statusBinding.name.setText(user.getNick_name());
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
 }

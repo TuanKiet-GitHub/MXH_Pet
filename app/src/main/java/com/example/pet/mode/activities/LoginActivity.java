@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         assert user != null;
                         editor.putString("token", user.getUid());
-                        saveInformUser(user.getUid());
+                        //saveInformUser(user.getUid());
                         editor.apply();
                         Intent intent = new Intent(getApplication(), HomeActivity.class);
                         startActivity(intent);

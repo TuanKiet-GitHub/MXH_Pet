@@ -1,6 +1,7 @@
 package com.example.pet.mode.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.ItemListNewsBinding;
+import com.example.pet.mode.home.ProfileFragment;
 import com.example.pet.mode.models.Image;
 import com.example.pet.mode.models.New;
 import com.example.pet.mode.models.User;
@@ -22,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -36,10 +40,9 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     int like = 0;
 
 
-    public ListNewsAdapter(Context context, ArrayList<New> list, User user, String day) {
+    public ListNewsAdapter(Context context, ArrayList<New> list, String day) {
         this.context = context;
         this.list = list;
-        this.user = user;
         this.day = day;
     }
 
@@ -53,11 +56,12 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.mBinding.setUser(user);
+        //holder.mBinding.setUser(user);
         holder.mBinding.setNews(list.get(position));
 
         getListImages(position, holder);
-
+        String token = list.get(position).getUser_id();
+        getUser(token, holder);
     }
 
     private void getListImages(int position, MyViewHolder holder ) {
@@ -86,7 +90,24 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
 
 
     }
+    private void getUser(String token, MyViewHolder holder) {
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+
+                holder.mBinding.setUser(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
     @Override
     public int getItemCount() {
         return list == null ? 0 : list.size();

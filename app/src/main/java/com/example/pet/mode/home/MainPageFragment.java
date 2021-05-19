@@ -3,6 +3,7 @@ package com.example.pet.mode.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,18 +66,9 @@ public class MainPageFragment extends Fragment {
         mBinding.linerStatus.setOnClickListener(v -> startActivity(new Intent(getActivity(), StatusActivity.class)));
         token = Utils.getToken(getActivity());
 
-        String temp = Utils.getUserInfor(getActivity());
-        if (!token.equals("1") && !temp.equals("1")) {
-            user = new Gson().fromJson(temp, User.class);
-            SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
-            String date = sf.format(Calendar.getInstance().getTime());
 
-            listNews = getListNew(date);
-
-            Glide.with(Objects.requireNonNull(getActivity()))
-                    .load(user.getAvatar())
-                    .into(mBinding.avatar);
-
+        if (!token.equals("1")) {
+          getUser(token);
         }
 
         return mBinding.getRoot();
@@ -97,7 +91,7 @@ public class MainPageFragment extends Fragment {
 
                     }
 
-                    adapter = new ListNewsAdapter(getContext(), listNews, user, day);
+                    adapter = new ListNewsAdapter(getContext(), listNews, day);
                     mBinding.rcvListNew.setLayoutManager(new LinearLayoutManager(getContext()));
                     mBinding.rcvListNew.setAdapter(adapter);
                 }
@@ -110,5 +104,33 @@ public class MainPageFragment extends Fragment {
         });
 
         return listNews;
+    }
+
+
+    private void getUser(String token) {
+
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+                String date = sf.format(Calendar.getInstance().getTime());
+
+                listNews = getListNew(date);
+
+                if(getActivity()!=null){
+                    Glide.with((getActivity()))
+                            .load(user.getAvatar())
+                            .into(mBinding.avatar);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
