@@ -16,11 +16,13 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
+import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.ActivityStatusBinding;
 import com.example.pet.mode.adapters.ImageAdapter;
 import com.example.pet.mode.models.Image;
 import com.example.pet.mode.models.New;
+import com.example.pet.mode.models.User;
 import com.example.pet.mode.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -59,6 +61,7 @@ public class StatusActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,13 @@ public class StatusActivity extends AppCompatActivity {
         statusBinding = DataBindingUtil.setContentView(this, R.layout.activity_status);
 
         preferences = getSharedPreferences("login", MODE_PRIVATE);
+
+        user = Utils.getUserInfor(StatusActivity.this);
+
+        Glide.with(StatusActivity.this)
+                .load(user.getAvatar())
+                .into(statusBinding.avatar);
+        statusBinding.name.setText(user.getNick_name());
 
         auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("News");

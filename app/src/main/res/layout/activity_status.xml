@@ -137,6 +137,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:id="@+id/avatar"
                 android:src="@drawable/people" />
 
             <TextView
@@ -147,6 +148,7 @@
                 android:text="Tuấn Kiệt"
                 android:textColor="@color/black"
                 android:textSize="16dp"
+                android:id="@+id/name"
                 android:textStyle="bold" />
         </LinearLayout>
 

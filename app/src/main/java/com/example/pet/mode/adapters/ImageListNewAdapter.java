@@ -74,6 +74,7 @@ public class ImageListNewAdapter extends RecyclerView.Adapter<ImageListNewAdapte
 
                 }
             });
+
 //            mBinding.image.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
