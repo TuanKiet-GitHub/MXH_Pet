@@ -62,16 +62,19 @@ public class ProfileFragment extends Fragment {
 
         token = Utils.getToken(getActivity());
 
-        user = Utils.getUserInfor(getActivity());
-        mBinding.setUser(user);
-        mBinding.tvAddress.setText("Address: " + user.getAddress());
-        mBinding.tvGender.setText("Gender: " + user.getGender());
-        mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
-        mBinding.tvYear.setText("Year Born: " + user.getYear_born());
-        if (!user.getAvatar().equals("default") && ProfileFragment.this.getActivity() != null) {
-            Glide.with(getContext()).load(Uri.parse(user.getAvatar()))
-                    .into(mBinding.avatar);
+        String temp = Utils.getUserInfor(getActivity());
+        if(!temp.equals("1")){
+            user = new Gson().fromJson(temp, User.class);
+            mBinding.setUser(user);
+            mBinding.tvAddress.setText("Address: " + user.getAddress());
+            mBinding.tvGender.setText("Gender: " + user.getGender());
+            mBinding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
+            mBinding.tvYear.setText("Year Born: " + user.getYear_born());
+            if (!user.getAvatar().equals("default") && ProfileFragment.this.getActivity() != null) {
+                Glide.with(getContext()).load(Uri.parse(user.getAvatar()))
+                        .into(mBinding.avatar);
 
+            }
         }
 
         mBinding.logout.setOnClickListener(v -> {
