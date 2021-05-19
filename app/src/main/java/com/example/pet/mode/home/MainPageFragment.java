@@ -62,9 +62,9 @@ public class MainPageFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false);
         mBinding.linerStatus.setOnClickListener(v -> startActivity(new Intent(getActivity(), StatusActivity.class)));
         token = Utils.getToken(getActivity());
-
-        if (!token.equals("1")) {
-            user = Utils.getUserInfor(getActivity());
+        String temp = Utils.getUserInfor(getActivity());
+        if (!token.equals("1") && !temp.equals("1")) {
+            user = new Gson().fromJson(temp, User.class);
             SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
             String date = sf.format(Calendar.getInstance().getTime());
 

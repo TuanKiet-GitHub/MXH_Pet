@@ -37,10 +37,10 @@ public class Utils {
         return sharedPreferences.getString("token", "1");
     }
 
-    public static User getUserInfor(Activity activity) {
+    public static String getUserInfor(Activity activity) {
         sharedPreferences = activity.getSharedPreferences("login", Context.MODE_PRIVATE);
         String user = sharedPreferences.getString("user_infor", "1");
 
-        return new Gson().fromJson(user, User.class);
+        return user;
     }
 }

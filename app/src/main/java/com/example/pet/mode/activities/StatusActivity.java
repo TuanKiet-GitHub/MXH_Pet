@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.text.ParseException;
@@ -69,14 +70,16 @@ public class StatusActivity extends AppCompatActivity {
         statusBinding = DataBindingUtil.setContentView(this, R.layout.activity_status);
 
         preferences = getSharedPreferences("login", MODE_PRIVATE);
+        String temp = Utils.getUserInfor(StatusActivity.this);
+        if (!temp.equals("1")) {
+            user = new Gson().fromJson(temp, User.class);
 
-        user = Utils.getUserInfor(StatusActivity.this);
+            Glide.with(StatusActivity.this)
+                    .load(user.getAvatar())
+                    .into(statusBinding.avatar);
+            statusBinding.name.setText(user.getNick_name());
 
-        Glide.with(StatusActivity.this)
-                .load(user.getAvatar())
-                .into(statusBinding.avatar);
-        statusBinding.name.setText(user.getNick_name());
-
+        }
         auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("News");
 
