@@ -40,12 +40,14 @@
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                    <ImageButton
+                        android:id="@+id/btn_search_friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:src="@drawable/search"
-                       />
+                        android:scaleType="fitCenter"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/search" />
 
                     <ImageView
                         android:layout_marginLeft="20dp"
