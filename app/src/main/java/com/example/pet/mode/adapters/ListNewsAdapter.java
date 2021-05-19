@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.ItemListNewsBinding;
 import com.example.pet.mode.models.Image;
@@ -32,6 +33,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     ImageListNewAdapter adapter;
     String day;
     DatabaseReference databaseReference;
+    int like = 0;
 
 
     public ListNewsAdapter(Context context, ArrayList<New> list, User user, String day) {
@@ -99,6 +101,23 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
 
             this.mBinding = itemView;
             recyclerView = itemView.rcvListImage;
+
+            itemView.heart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (like == 0){
+                        like =1;
+                        Glide.with(context)
+                        .load(R.drawable.heartdo)
+                        .into(mBinding.heart);
+                    } else {
+                        like = 0;
+                        Glide.with(context)
+                                .load(R.drawable.heartden)
+                                .into(mBinding.heart);
+                    }
+                }
+            });
         }
     }
 
