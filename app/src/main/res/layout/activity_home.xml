@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     tools:context=".mode.activities.MainActivity">
+
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorWhite"
             android:orientation="vertical"
             android:weightSum="10">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:layout_marginLeft="-50dp"
+                    android:padding="10dp"
                     android:src="@drawable/text" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,39 +43,42 @@
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                    <ImageButton
+                        android:id="@+id/btn_search_friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:src="@drawable/search"
-                       />
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/search" />
 
                     <ImageView
-                        android:layout_marginLeft="20dp"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="end"
-                        android:src="@drawable/chuong"
-                        />
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/chuong" />
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:id="@+id/linerBottom"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:weightSum="4"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:weightSum="4">
+
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:layout_weight="1"
+                android:orientation="vertical">
+
                 <Button
                     android:id="@+id/btnSquare"
                     android:layout_width="match_parent"
@@ -81,84 +87,87 @@
                     android:background="@color/white"
                     android:backgroundTint="@color/white"
                     android:drawableTop="@drawable/vuong" />
+
                 <LinearLayout
-                   android:orientation="horizontal"
                     android:id="@+id/linerSquare"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:orientation="horizontal" />
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnLove"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:backgroundTint="@color/white"
-                android:drawableTop="@drawable/tim" />
+                <Button
+                    android:id="@+id/btnLove"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:drawableTop="@drawable/tim" />
+
+                <LinearLayout
+                    android:id="@+id/linerLove"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:orientation="horizontal" />
+            </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/linerLove"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-        </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            >
-            <Button
-                android:backgroundTint="@color/white"
-                android:id="@+id/btnMessage"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:drawableTop="@drawable/message2"
-                android:layout_height="40dp"/>
+                <Button
+                    android:id="@+id/btnMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:drawableTop="@drawable/message2" />
+
+                <LinearLayout
+                    android:id="@+id/linerMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+
             <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/linerMessage"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            >
-            <Button
-                android:backgroundTint="@color/white"
-                android:id="@+id/btnProfile"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:drawableTop="@drawable/nguoi"
-                android:layout_height="40dp"/>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/linerProfile"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-        </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:drawableTop="@drawable/nguoi" />
+
+                <LinearLayout
+                    android:id="@+id/linerProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:orientation="horizontal" />
+            </LinearLayout>
 
         </LinearLayout>
+
         <FrameLayout
-            android:background="@color/white"
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-             />
+            android:background="@color/white" />
     </LinearLayout>
 
 </RelativeLayout>
