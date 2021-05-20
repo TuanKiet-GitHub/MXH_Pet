@@ -22,7 +22,7 @@ public class SearchFriendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_search_friend);
 
         setTitle("");
 
@@ -52,7 +52,7 @@ public class SearchFriendActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.search_menu, menu);
-        MenuItem item = menu.findItem(R.id.search_friend);
+//        MenuItem item = menu.findItem(R.id.search_friend);
 
         SearchView searchView = findViewById(R.id.searchview_friend);
 
