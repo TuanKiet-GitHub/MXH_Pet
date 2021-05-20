@@ -6,15 +6,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".mode.activities.SearchFriendActivity">
-    <androidx.appcompat.widget.Toolbar
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorAccent">
-        <SearchView
+        android:layout_height="wrap_content"
+        android:background="@color/colorButton"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/back"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:onClick="ReturnMain"/>
+
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/searchview_friend"/>
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginRight="5dp">
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchview_friend"/>
+        </androidx.appcompat.widget.Toolbar>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewFriendSearch"
         android:layout_width="match_parent"

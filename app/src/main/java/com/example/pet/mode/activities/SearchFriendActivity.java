@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 
 import com.example.pet.R;
@@ -83,5 +84,9 @@ public class SearchFriendActivity extends AppCompatActivity {
         adapter = new SearchFriendAdapter(options);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
+    }
+
+    public void ReturnMain(View view) {
+        onBackPressed();
     }
 }
