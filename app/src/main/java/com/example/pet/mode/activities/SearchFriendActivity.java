@@ -35,29 +35,8 @@ public class SearchFriendActivity extends AppCompatActivity {
                         .build();
         adapter = new SearchFriendAdapter(options);
         recyclerView.setAdapter(adapter);
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-//        MenuItem item = menu.findItem(R.id.search_friend);
 
         SearchView searchView = findViewById(R.id.searchview_friend);
-
-//        searchView = (SearchView)item.getActionView();
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -71,9 +50,33 @@ public class SearchFriendActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        return super.onCreateOptionsMenu(menu);
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        getMenuInflater().inflate(R.menu.search_menu, menu);
+////        MenuItem item = menu.findItem(R.id.search_friend);
+//
+//
+//
+////        SearchView searchView = (SearchView)item.getActionView();
+//
+//
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     private void processsearch(String s) {
         FirebaseRecyclerOptions<User> options =
