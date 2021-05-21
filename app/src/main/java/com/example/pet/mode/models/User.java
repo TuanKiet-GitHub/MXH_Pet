@@ -17,9 +17,15 @@ public class User {
     private String address;
     private String phone_number;
     private String full_name;
-
+    private  String status = "online";
     private String avatar = "default";
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
     public String getId() {
         return id;
     }
