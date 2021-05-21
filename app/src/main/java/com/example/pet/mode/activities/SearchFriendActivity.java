@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.SearchView;
 
 import com.example.pet.R;
+import com.example.pet.mode.adapters.SearchFriendAdapater2;
 import com.example.pet.mode.adapters.SearchFriendAdapter;
 import com.example.pet.mode.adapters.UserChatAdapter;
 import com.example.pet.mode.models.Friend;
@@ -34,7 +35,8 @@ import java.util.ArrayList;
 
 public class SearchFriendActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    SearchFriendAdapter adapter;
+    SearchFriendAdapter adapter1;
+    SearchFriendAdapater2 adpater2;
 
     ArrayList<User> listUser ;
     ArrayList<User> listFriend ;
@@ -64,7 +66,7 @@ public class SearchFriendActivity extends AppCompatActivity {
         token = sharedPreferences.getString("token", "1");
         listFriend = new ArrayList<>();
         listUser = new ArrayList<>();
-        adapter = new SearchFriendAdapter(getApplicationContext(), listUser);
+        adapter1 = new SearchFriendAdapter(getApplicationContext(), listUser);
 
         if (!token.equals("1")) {
             friendReference = FirebaseDatabase.getInstance().getReference("Users").child(token).child("listFriends");
@@ -76,7 +78,7 @@ public class SearchFriendActivity extends AppCompatActivity {
                         {
                             User friend = dataSnapshot.getValue(User.class);
                             listFriend.add(new User(friend.getId(), friend.getNick_name(), friend.getAvatar()));
-                            adapter.notifyDataSetChanged();
+                            adapter1.notifyDataSetChanged();
                             showFriendReference =FirebaseDatabase.getInstance().getReference("Users");
                             showFriendReference.addValueEventListener(new ValueEventListener() {
                                 @Override
@@ -89,7 +91,7 @@ public class SearchFriendActivity extends AppCompatActivity {
                                                 listUser.add(new User(user.getId(), user.getNick_name(), user.getAvatar()));
                                             }
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        adapter1.notifyDataSetChanged();
                                     }
                                 }
                                 @Override
@@ -98,7 +100,7 @@ public class SearchFriendActivity extends AppCompatActivity {
                             });
                         }
                     }
-                    recyclerView.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter1);
                 }
 
                 @Override
@@ -113,28 +115,28 @@ public class SearchFriendActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //processsearch(query);
+                processsearch(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //processsearch(newText);
+                processsearch(newText);
                 return false;
             }
         });
     }
 
-//    private void processsearch(String s) {
-//        FirebaseRecyclerOptions<User> options =
-//                new FirebaseRecyclerOptions.Builder<User>()
-//                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("nick_name")
-//                                .startAt(s).endAt(s+"\uf8ff"), User.class)
-//                        .build();
-//        adapter = new SearchFriendAdapter(options);
-//        adapter.startListening();
-//        recyclerView.setAdapter(adapter);
-//    }
+    private void processsearch(String s) {
+        FirebaseRecyclerOptions<User> options =
+                new FirebaseRecyclerOptions.Builder<User>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("nick_name")
+                                .startAt(s).endAt(s+"\uf8ff"), User.class)
+                        .build();
+        adpater2 = new SearchFriendAdapater2(options);
+        adpater2.startListening();
+        recyclerView.setAdapter(adpater2);
+    }
 
     public void ReturnMain(View view) {
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
