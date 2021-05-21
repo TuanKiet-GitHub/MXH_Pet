@@ -2,6 +2,7 @@ package com.example.pet.mode.adapters;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
 
     Context context;
     ArrayList<User> listUser;
+    String s;
 
     public SearchFriendAdapter(Context context, ArrayList<User> listUser) {
         this.context = context;
@@ -50,6 +52,7 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
         User user = listUser.get(position);
         holder.name.setText(user.getNick_name());
         Glide.with(holder.img.getContext()).load(user.getAvatar()).into(holder.img);
+        holder.view.setTag(position);
     }
 
     @Override
@@ -61,9 +64,11 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
 
         CircleImageView img;
         TextView name;
+        View view;
 
         public viewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
+            view = itemView;
             img = (CircleImageView) itemView.findViewById(R.id.img1);
             name = (TextView) itemView.findViewById(R.id.nametext);
             itemView.setOnClickListener(this::onClick);
@@ -73,6 +78,10 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
         public void onClick(View v) {
             AppCompatActivity activity = (AppCompatActivity) v.getContext();
             Fragment myFragment = new ProfileFriendFragment();
+            s = listUser.get(getAdapterPosition()).getId();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", s);
+            myFragment.setArguments(bundle);
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_search_friend, myFragment).addToBackStack(null).commit();
         }
     }
