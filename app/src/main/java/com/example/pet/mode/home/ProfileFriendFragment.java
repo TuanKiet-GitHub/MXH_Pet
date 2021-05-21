@@ -67,6 +67,8 @@ public class ProfileFriendFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_friend, container, false);
+
+        // Return
         ImageButton btn_back = view.findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,16 @@ public class ProfileFriendFragment extends Fragment {
                 startActivity(new Intent(v.getContext(), SearchFriendActivity.class));
             }
         });
+
+        // Send Request
+        Button send = view.findViewById(R.id.SendRequest);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), SearchFriendActivity.class));
+            }
+        });
+
         return view;
     }
 }
