@@ -63,21 +63,6 @@ public class SearchFriendActivity extends AppCompatActivity {
         adapter.stopListening();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.search_menu, menu);
-////        MenuItem item = menu.findItem(R.id.search_friend);
-//
-//
-//
-////        SearchView searchView = (SearchView)item.getActionView();
-//
-//
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
     private void processsearch(String s) {
         FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()
