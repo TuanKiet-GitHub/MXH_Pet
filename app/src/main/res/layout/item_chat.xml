@@ -13,7 +13,8 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="80dp">
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/relaAvatar"
                 android:orientation="vertical"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content">
@@ -27,16 +28,26 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"/>
                 <ImageView
-                    android:id="@+id/imgStatusMessage"
+                    android:layout_toLeftOf="@id/imgAvatarChat"
+                    android:layout_marginTop="-25dp"
+                    android:id="@+id/imgStatusOnline"
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="-25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/imgAvatarChat"
                     android:src="@drawable/circle_blue" />
-            </LinearLayout>
-
-
+                <ImageView
+                    android:visibility="invisible"
+                    android:layout_toLeftOf="@id/imgAvatarChat"
+                    android:layout_marginTop="-25dp"
+                    android:id="@+id/imgStatusOffline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/imgAvatarChat"
+                    android:src="@drawable/circle_silver" />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="319dp"
                 android:layout_height="wrap_content"

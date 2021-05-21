@@ -42,10 +42,23 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
         UserChat chat = list.get(position);
         Uri uri = Uri.parse(chat.getImage().toString().trim());
         Glide.with(context).load(uri).fitCenter().into(holder.imageView);
+        if (chat.getStatus().equals("online"))
+        {
+            holder.img_On.setVisibility(View.VISIBLE);
+            holder.img_Off.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.img_Off.setVisibility(View.VISIBLE);
+            holder.img_On.setVisibility(View.GONE);
+        }
+
+
         // holder.imageView.setImageResource(chat.getImage());
         holder.name.setText(chat.getName());
         holder.chat.setText(chat.getLastMessage());
         holder.view.setTag(position);
+
 
     }
 
@@ -64,6 +77,8 @@ public class UserChatAdapter extends RecyclerView.Adapter<UserChatAdapter.ViewHo
             imageView = itemView.findViewById(R.id.imgAvatarChat);
             name = itemView.findViewById(R.id.tvNameChat);
             chat = itemView.findViewById(R.id.tvMessageChat);
+            img_On = itemView.findViewById(R.id.imgStatusOnline);
+            img_Off = itemView.findViewById(R.id.imgStatusOffline);
             itemView.setOnClickListener(this);
         }
 

@@ -69,8 +69,15 @@ public class MessageFragment extends Fragment {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     User user = snapshot.getValue(User.class);
+                                    for ( int i = 0 ; i < listChat.size() ; i ++)
+                                    {
+                                        if (user.getId().equals(listChat.get(i).getId()))
+                                        {
+                                            listChat.remove(i);
+                                        }
+                                    }
                                     Log.e("friend", user.getId() + "|" + user.getNick_name()  + " | " + friend.getLastMessage()  + "|"+ user.getAvatar());
-                                    listChat.add(new UserChat(token,user.getId() , user.getAvatar(), user.getNick_name() , friend.getLastMessage()));
+                                    listChat.add(new UserChat(token,user.getId() , user.getAvatar(), user.getNick_name() , friend.getLastMessage(), user.getStatus()));
                                     //  Log.e("friend", listChat.get(0).getLastMessage());
                                     adapter.notifyDataSetChanged();
                                 }

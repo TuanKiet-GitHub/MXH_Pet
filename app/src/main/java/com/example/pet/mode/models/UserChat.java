@@ -7,6 +7,7 @@ public class UserChat implements Serializable {
     String id ;
     String  image  ;
     String name , lastMessage  ;
+    String status ;
 
     public String getTokenSender() {
         return tokenSender;
@@ -24,12 +25,21 @@ public class UserChat implements Serializable {
         this.id = id;
     }
 
-    public UserChat(String tokenSender, String id , String image, String name, String lastMessage) {
+    public UserChat(String tokenSender, String id , String image, String name, String lastMessage , String status) {
         this.tokenSender = tokenSender;
         this.id = id;
         this.image = image;
         this.name = name;
         this.lastMessage = lastMessage;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getImage() {
