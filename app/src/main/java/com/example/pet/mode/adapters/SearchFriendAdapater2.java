@@ -1,5 +1,6 @@
 package com.example.pet.mode.adapters;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchFriendAdapater2 extends FirebaseRecyclerAdapter<User, SearchFriendAdapater2.viewholder> {
+    String s = "";
 
     public SearchFriendAdapater2(@NonNull @NotNull FirebaseRecyclerOptions<User> options) {
         super(options);
@@ -31,6 +33,7 @@ public class SearchFriendAdapater2 extends FirebaseRecyclerAdapter<User, SearchF
     protected void onBindViewHolder(@NonNull @NotNull SearchFriendAdapater2.viewholder viewholder, int i, @NonNull @NotNull User user) {
         viewholder.name.setText(user.getNick_name());
         Glide.with(viewholder.img.getContext()).load(user.getAvatar()).into(viewholder.img);
+        s = user.getId();
     }
 
     @NonNull
@@ -56,6 +59,9 @@ public class SearchFriendAdapater2 extends FirebaseRecyclerAdapter<User, SearchF
         public void onClick(View v) {
             AppCompatActivity activity = (AppCompatActivity) v.getContext();
             Fragment myFragment = new ProfileFriendFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", s);
+            myFragment.setArguments(bundle);
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_search_friend, myFragment).addToBackStack(null).commit();
         }
     }

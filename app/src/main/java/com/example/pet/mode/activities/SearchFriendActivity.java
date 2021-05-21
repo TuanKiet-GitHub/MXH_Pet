@@ -86,7 +86,6 @@ public class SearchFriendActivity extends AppCompatActivity {
                                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                         User user = dataSnapshot.getValue(User.class);
                                         for (int i = 0; i < listFriend.size(); i++) {
-                                            Log.e("TAG", "" + listFriend.get(i).getId() + "-----" + user.getId());
                                             if (!user.getId().equals(listFriend.get(i).getId()) && !user.getId().equals(token)) {
                                                 listUser.add(new User(user.getId(), user.getNick_name(), user.getAvatar()));
                                             }
@@ -109,8 +108,6 @@ public class SearchFriendActivity extends AppCompatActivity {
                 }
             });
         }
-
-
         SearchView searchView = findViewById(R.id.searchview_friend);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

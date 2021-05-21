@@ -1,19 +1,35 @@
 package com.example.pet.mode.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.mode.activities.SearchFriendActivity;
+import com.example.pet.mode.models.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +37,9 @@ import com.example.pet.mode.activities.SearchFriendActivity;
  * create an instance of this fragment.
  */
 public class ProfileFriendFragment extends Fragment {
+    private DatabaseReference friendReference;
+    CircleImageView circleImageView;
+    TextView userName, nickName, gender, DOB, address, phone;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,6 +86,42 @@ public class ProfileFriendFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_friend, container, false);
+
+        circleImageView = view.findViewById(R.id.avatar_friend);
+        userName = view.findViewById(R.id.tv_username_friend);
+        nickName = view.findViewById(R.id.tv_nick_name_friend);
+        gender = view.findViewById(R.id.tv_gender_friend);
+        DOB = view.findViewById(R.id.tv_year_friend);
+        address = view.findViewById(R.id.tv_address_friend);
+        phone = view.findViewById(R.id.tv_phoneNumber_friend);
+
+        String value = this.getArguments().getString("id");
+        Log.e("TAG", ""+ value );
+
+        if (!value.isEmpty()) {
+            friendReference = FirebaseDatabase.getInstance().getReference("Users").child(value);
+            friendReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                            User user = snapshot.getValue(User.class);
+                            Glide.with(getContext()).load(user.getAvatar()).into(circleImageView);
+                            userName.setText(user.getFull_name());
+                            nickName.setText(user.getNick_name());
+                            gender.setText("Gender: " + user.getGender());
+                            DOB.setText("Day Of Birth: " + user.getYear_born());
+                            address.setText("Address: " + user.getAddress());
+                            phone.setText("Phone Number: " + user.getPhone_number());
+//                            Log.e("TAG", "" + user);
+                        }
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+        }
 
         // Return
         ImageButton btn_back = view.findViewById(R.id.btn_back);
