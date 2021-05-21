@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pet.R;
+import com.example.pet.mode.home.ProfileFriendFragment;
 import com.example.pet.mode.home.ProfileMakeFriendFragment;
 import com.example.pet.mode.models.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -55,7 +56,7 @@ public class SearchFriendAdapter extends FirebaseRecyclerAdapter<User, SearchFri
         @Override
         public void onClick(View v) {
             AppCompatActivity activity = (AppCompatActivity) v.getContext();
-            Fragment myFragment = new ProfileMakeFriendFragment();
+            Fragment myFragment = new ProfileFriendFragment();
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_search_friend, myFragment).addToBackStack(null).commit();
         }
     }
