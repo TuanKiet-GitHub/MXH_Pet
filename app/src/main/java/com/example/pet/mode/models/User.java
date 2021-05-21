@@ -19,6 +19,8 @@ public class User {
     private String full_name;
     private  String status = "online";
     private String avatar = "default";
+
+
     public String getStatus() {
         return status;
     }
@@ -91,6 +93,12 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(String id, String nick_name, String avatar) {
+        this.id = id;
+        this.nick_name = nick_name;
+        this.avatar = avatar;
     }
 
     @Override

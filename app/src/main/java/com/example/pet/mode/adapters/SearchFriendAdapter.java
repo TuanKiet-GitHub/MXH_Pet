@@ -1,6 +1,7 @@
 package com.example.pet.mode.adapters;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,35 +19,50 @@ import com.example.pet.mode.home.ProfileMakeFriendFragment;
 import com.example.pet.mode.models.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.annotations.NotNull;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SearchFriendAdapter extends FirebaseRecyclerAdapter<User, SearchFriendAdapter.viewHolder> {
+public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapter.viewHolder> {
 
-    public SearchFriendAdapter(@NonNull @NotNull FirebaseRecyclerOptions<User> options) {
-        super(options);
-    }
+    Context context;
+    ArrayList<User> listUser;
 
-    @Override
-    protected void onBindViewHolder(@NonNull @NotNull SearchFriendAdapter.viewHolder viewHolder, int i, @NonNull @NotNull User user) {
-        viewHolder.name.setText(user.getNick_name());
-        Glide.with(viewHolder.img.getContext()).load(user.getAvatar()).into(viewHolder.img);
+    public SearchFriendAdapter(Context context, ArrayList<User> listUser) {
+        this.context = context;
+        this.listUser = listUser;
     }
 
     @NonNull
     @NotNull
     @Override
-    public SearchFriendAdapter.viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public viewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.search_friend,parent,false);
         return new viewHolder(view);
     }
 
-    class viewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    public void onBindViewHolder(@NonNull @NotNull SearchFriendAdapter.viewHolder holder, int position) {
+        User user = listUser.get(position);
+        holder.name.setText(user.getNick_name());
+        Glide.with(holder.img.getContext()).load(user.getAvatar()).into(holder.img);
+    }
+
+    @Override
+    public int getItemCount() {
+        return listUser.size();
+    }
+
+    public class viewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         CircleImageView img;
         TextView name;
 
-        public viewHolder(@NonNull View itemView) {
+        public viewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             img = (CircleImageView) itemView.findViewById(R.id.img1);
             name = (TextView) itemView.findViewById(R.id.nametext);
