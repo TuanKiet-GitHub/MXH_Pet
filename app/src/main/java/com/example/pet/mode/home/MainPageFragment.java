@@ -51,7 +51,7 @@ public class MainPageFragment extends Fragment {
     private ListNewsAdapter adapter;
     private ArrayList<New> listNews;
     private String token;
-    User user;
+
 
     DatabaseReference reference;
 
@@ -68,7 +68,11 @@ public class MainPageFragment extends Fragment {
 
 
         if (!token.equals("1")) {
-          getUser(token);
+            getUser(token);
+            SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
+            String date = sf.format(Calendar.getInstance().getTime());
+
+            listNews = getListNew("21-05-2021");
         }
 
         return mBinding.getRoot();
@@ -82,6 +86,7 @@ public class MainPageFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                listNews.clear();
                 if (snapshot.exists()) {
                     for (DataSnapshot s : snapshot.getChildren()) {
 
@@ -106,7 +111,6 @@ public class MainPageFragment extends Fragment {
         return listNews;
     }
 
-
     private void getUser(String token) {
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(token);
@@ -114,12 +118,8 @@ public class MainPageFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
-                String date = sf.format(Calendar.getInstance().getTime());
 
-                listNews = getListNew(date);
-
-                if(getActivity()!=null){
+                if (getActivity() != null) {
                     Glide.with((getActivity()))
                             .load(user.getAvatar())
                             .into(mBinding.avatar);

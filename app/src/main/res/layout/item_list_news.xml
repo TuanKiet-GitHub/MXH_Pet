@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="news"
             type="com.example.pet.mode.models.New" />
@@ -16,8 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,12 +31,12 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_avatar"
+                    setThumbnail="@{user.avatar}"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/people"
-                    setThumbnail="@{user.avatar}"/>
+                    android:src="@drawable/people" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -109,6 +109,63 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_image" />
+
+                <ImageView
+                    android:id="@+id/comment"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="40dp"
+                    android:src="@drawable/ic_comment" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/silver" />
+
+
+                <LinearLayout
+                    android:id="@+id/show_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                   <androidx.core.widget.NestedScrollView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <androidx.recyclerview.widget.RecyclerView
+                           android:id="@+id/rcr_comment"
+                           android:layout_width="match_parent"
+                           android:layout_height="200dp" />
+                   </androidx.core.widget.NestedScrollView>
+
+                    <LinearLayout
+                        android:id="@+id/relaSend"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/silver"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <EditText
+                            android:id="@+id/edt_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_weight="9" />
+
+                        <ImageView
+                            android:id="@+id/imv_comment"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/send" />
+                    </LinearLayout>
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="match_parent"
