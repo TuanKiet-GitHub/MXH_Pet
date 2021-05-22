@@ -1,6 +1,7 @@
 package com.example.pet.mode.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +51,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHole
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHoler holder, int position) {
         Message message = list.get(position);
+        Log.e("SendOnBind" , "" + message.getStatus());
         holder.show_message.setText(message.getMessage());
         Glide.with(context).load(imgUrl).fitCenter().into(holder.profile_image);
+        if (position == list.size()-1)
+        {
+           holder.txt_seen.setText(message.getStatus());
+        }
+        else
+        {
+            holder.txt_seen.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -62,10 +73,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHole
     public class ViewHoler extends RecyclerView.ViewHolder {
         public TextView show_message ;
         public ImageView profile_image;
+        public TextView txt_seen ;
         public ViewHoler(@NonNull View itemView) {
             super(itemView);
             show_message = itemView.findViewById(R.id.show_message);
             profile_image = itemView.findViewById(R.id.profile_image);
+            txt_seen = itemView.findViewById(R.id.txt_seen);
         }
     }
 

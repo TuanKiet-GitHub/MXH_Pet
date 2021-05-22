@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="user"
@@ -12,6 +12,7 @@
         android:background="@color/white"
         tools:context=".mode.home.ProfileFragment">
         <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_width="1dp"
             android:id="@+id/avatar"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -53,14 +54,22 @@
             android:text="@{user.nick_name}"
             android:textColor="@color/black"
             android:textSize="16sp" />
-
+        <TextView
+            android:id="@+id/viewLine5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_nick_name"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/my_statusbar_color" />
         <TextView
             android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_nick_name"
             android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -68,7 +77,7 @@
         <TextView
             android:id="@+id/viewLine"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_below="@id/tv_gender"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
@@ -89,7 +98,7 @@
         <TextView
             android:id="@+id/viewLine1"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_below="@id/tv_year"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
@@ -110,7 +119,7 @@
         <TextView
             android:id="@+id/viewLine2"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_below="@id/tv_address"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
@@ -131,7 +140,7 @@
         <TextView
             android:id="@+id/viewLine3"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1dp"
             android:layout_below="@id/tv_phoneNumber"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
@@ -140,7 +149,10 @@
 
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorButton"
             android:text="Log out"
