@@ -71,12 +71,10 @@ public class MessageFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 String nick_name = edSearchFriend.getText().toString().trim();
@@ -140,7 +138,7 @@ public class MessageFragment extends Fragment {
                                         listChat.remove(i);
                                     }
                                 }
-                                Log.e("friend", user.getId() + "|" + user.getNick_name()  + " | " + friend.getLastMessage()  + "|"+ user.getAvatar());
+                              //  Log.e("friend", user.getId() + "|" + user.getNick_name()  + " | " + friend.getLastMessage()  + "|"+ user.getAvatar());
                                 listChat.add(new UserChat(token,user.getId() , user.getAvatar(), user.getNick_name() , friend.getLastMessage(), user.getStatus()));
                                 //  Log.e("friend", listChat.get(0).getLastMessage());
                                 adapter.notifyDataSetChanged();
