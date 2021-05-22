@@ -247,7 +247,7 @@ public class StatusActivity extends AppCompatActivity {
         temp.put("time", aNew.getTime());
 
 
-        databaseReference.child(key_date).child(id_new).setValue(temp);
+        databaseReference.child(id_new).setValue(temp);
 
         //upload image
         storage = FirebaseStorage.getInstance();
@@ -282,7 +282,7 @@ public class StatusActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                Glide.with(StatusActivity.this)
+                Glide.with(getApplicationContext())
                         .load(user.getAvatar())
                         .into(statusBinding.avatar);
                 statusBinding.name.setText(user.getNick_name());
