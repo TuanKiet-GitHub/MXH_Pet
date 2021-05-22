@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.pet.R;
 import com.example.pet.mode.adapters.SearchFriendAdapater2;
@@ -32,14 +33,14 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SearchFriendActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SearchFriendAdapter adapter1;
     SearchFriendAdapater2 adpater2;
 
-    ArrayList<User> listUser ;
-    ArrayList<User> listFriend ;
+    public ArrayList<User> listUser, listFriend;
     private String token;
     private SharedPreferences sharedPreferences;
     private DatabaseReference friendReference;
@@ -78,28 +79,49 @@ public class SearchFriendActivity extends AppCompatActivity {
                         {
                             User friend = dataSnapshot.getValue(User.class);
                             listFriend.add(new User(friend.getId(), friend.getNick_name(), friend.getAvatar()));
-                            adapter1.notifyDataSetChanged();
-                            showFriendReference =FirebaseDatabase.getInstance().getReference("Users");
-                            showFriendReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                        User user = dataSnapshot.getValue(User.class);
-                                        for (int i = 0; i < listFriend.size(); i++) {
-                                            if (!user.getId().equals(listFriend.get(i).getId()) && !user.getId().equals(token)) {
-                                                listUser.add(new User(user.getId(), user.getNick_name(), user.getAvatar()));
-                                            }
-                                        }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                }
+            });
+            showFriendReference =FirebaseDatabase.getInstance().getReference("Users");
+            showFriendReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                        {
+                            User user1 = dataSnapshot.getValue(User.class);
+                            listUser.add(new User(user1.getId(), user1.getNick_name(), user1.getAvatar()));
+
+                        }
+                        if (listFriend.isEmpty() ){
+                            for (int n=0; n < listUser.size(); n++){
+                                if (listUser.get(n).getId().equals(token)){
+                                    listUser.remove(listUser.get(n));
+                                    adapter1.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                        else {
+                            for (int m=0; m<listFriend.size();m++){
+                                for (int n=0; n < listUser.size(); n++){
+                                    if (listUser.get(n).getId().equals(token)){
+                                        listUser.remove(listUser.get(n));
+                                        adapter1.notifyDataSetChanged();
+                                    }
+                                    if (listUser.get(n).getId().equals(listFriend.get(m).getId())){
+                                        listUser.remove(listUser.get(n));
                                         adapter1.notifyDataSetChanged();
                                     }
                                 }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            });
+                            }
                         }
                     }
-                    recyclerView.setAdapter(adapter1);
                 }
 
                 @Override
@@ -108,6 +130,8 @@ public class SearchFriendActivity extends AppCompatActivity {
                 }
             });
         }
+        recyclerView.setAdapter(adapter1);
+
         SearchView searchView = findViewById(R.id.searchview_friend);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -125,14 +149,13 @@ public class SearchFriendActivity extends AppCompatActivity {
     }
 
     private void processsearch(String s) {
-        FirebaseRecyclerOptions<User> options =
-                new FirebaseRecyclerOptions.Builder<User>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("nick_name")
-                                .startAt(s).endAt(s+"\uf8ff"), User.class)
-                        .build();
-        adpater2 = new SearchFriendAdapater2(options);
-        adpater2.startListening();
-        recyclerView.setAdapter(adpater2);
+        ArrayList<User> searchUser = new ArrayList<>();
+        for (User user : listUser){
+            if (user.getNick_name().toLowerCase().contains(s.toLowerCase())){
+                searchUser.add(user);
+            }
+        }
+        adapter1.searchUserList(searchUser);
     }
 
     public void ReturnMain(View view) {

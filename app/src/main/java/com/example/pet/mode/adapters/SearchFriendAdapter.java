@@ -60,6 +60,11 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
         return listUser.size();
     }
 
+    public void searchUserList(ArrayList<User> searchUserList){
+        listUser = searchUserList;
+        notifyDataSetChanged();
+    }
+
     public class viewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CircleImageView img;
