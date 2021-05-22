@@ -108,13 +108,15 @@ public class SearchFriendActivity extends AppCompatActivity {
                             }
                         }
                         else {
-                            for (int m=0; m<listFriend.size();m++){
-                                for (int n=0; n < listUser.size(); n++){
-                                    if (listUser.get(n).getId().equals(token)){
-                                        listUser.remove(listUser.get(n));
-                                        adapter1.notifyDataSetChanged();
-                                    }
-                                    if (listUser.get(n).getId().equals(listFriend.get(m).getId())){
+                            for (int n=0; n < listUser.size(); n++){
+                                if (listUser.get(n).getId().equals(token)){
+                                    listUser.remove(listUser.get(n));
+                                    adapter1.notifyDataSetChanged();
+                                }
+                            }
+                            for (int m = 0; m < listFriend.size(); m++) {
+                                for (int n = 0; n < listUser.size(); n++){
+                                    if (listUser.get(n).getId().equals(listFriend.get(m).getId())) {
                                         listUser.remove(listUser.get(n));
                                         adapter1.notifyDataSetChanged();
                                     }
