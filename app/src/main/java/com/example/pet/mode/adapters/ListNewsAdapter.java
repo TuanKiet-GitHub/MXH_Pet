@@ -38,17 +38,14 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     ItemListNewsBinding mBinding;
     ImageListNewAdapter adapter;
     CommentAdapter commentAdapter;
-
-    String day;
     DatabaseReference databaseReference;
     int like = 0;
     int click = 0;
 
 
-    public ListNewsAdapter(Context context, ArrayList<New> list, String day) {
+    public ListNewsAdapter(Context context, ArrayList<New> list) {
         this.context = context;
         this.list = list;
-        this.day = day;
     }
 
     @NonNull
@@ -73,7 +70,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
 
     private void getListImages(int position, MyViewHolder holder) {
         ArrayList<Image> listImage = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("News").child(day).child(list.get(position).getId()).child("list_image");
+        databaseReference = FirebaseDatabase.getInstance().getReference("News").child(list.get(position).getId()).child("list_image");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -168,17 +165,47 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
             itemView.heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (like == 0) {
-                        like = 1;
+                    click = click == 0 ? 1 : 0;
+                    if (click == 1) {
                         Glide.with(context)
                                 .load(R.drawable.heartdo)
                                 .into(mBinding.heart);
+                        addToFavorite();
                     } else {
-                        like = 0;
                         Glide.with(context)
                                 .load(R.drawable.heartden)
                                 .into(mBinding.heart);
                     }
+                }
+
+                private void addToFavorite() {
+                    String token = Utils.getToken((Activity) context);
+                    databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+
+                    databaseReference.child("favorite_posts").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                            boolean temp = true;
+                            if (snapshot.exists()) {
+                                for (DataSnapshot s : snapshot.getChildren()) {
+                                    if (getAdapterPosition() != -1) {
+                                        if (s.getValue(String.class).equals(list.get(getAdapterPosition()).getId())) {
+                                            temp = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if (temp) {
+                                databaseReference.child("favorite_posts").push().setValue(list.get(getAdapterPosition()).getId());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    });
                 }
             });
 
@@ -193,7 +220,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
                         itemView.edtComment.requestFocus();
 
                     }
-                   // getListComment(list.get(getAdapterPosition()).getId());
+                    // getListComment(list.get(getAdapterPosition()).getId());
                 }
             });
 

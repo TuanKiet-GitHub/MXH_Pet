@@ -1,17 +1,11 @@
 package com.example.pet.mode.home;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,27 +18,15 @@ import com.example.pet.mode.adapters.ListNewsAdapter;
 import com.example.pet.mode.models.New;
 import com.example.pet.mode.models.User;
 import com.example.pet.mode.utils.Utils;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-
 import org.jetbrains.annotations.NotNull;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
-
-import static android.content.ContentValues.TAG;
-
 
 public class MainPageFragment extends Fragment {
     private FragmentMainPageBinding mBinding;
@@ -81,7 +63,7 @@ public class MainPageFragment extends Fragment {
     private ArrayList<New> getListNew(String day) {
         ArrayList<New> listNews = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("News").child(day);
+        reference = FirebaseDatabase.getInstance().getReference("News");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -96,7 +78,7 @@ public class MainPageFragment extends Fragment {
 
                     }
 
-                    adapter = new ListNewsAdapter(getContext(), listNews, day);
+                    adapter = new ListNewsAdapter(getContext(), listNews);
                     mBinding.rcvListNew.setLayoutManager(new LinearLayoutManager(getContext()));
                     mBinding.rcvListNew.setAdapter(adapter);
                 }
