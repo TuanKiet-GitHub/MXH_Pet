@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".mode.home.MainPageFragment">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewLove"
-        tools:listitem="@layout/item_list_news"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <!-- TODO: Update blank fragment layout -->
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        tools:context=".mode.home.MainPageFragment">
 
 
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewLove"
+            tools:listitem="@layout/item_list_news"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <!-- TODO: Update blank fragment layout -->
+
+
+    </LinearLayout>
+</layout>

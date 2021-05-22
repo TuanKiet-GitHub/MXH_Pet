@@ -38,8 +38,8 @@ public class SearchFriendActivity extends AppCompatActivity {
     SearchFriendAdapter adapter1;
     SearchFriendAdapater2 adpater2;
 
-    ArrayList<User> listUser ;
-    ArrayList<User> listFriend ;
+    ArrayList<User> listUser;
+    ArrayList<User> listFriend;
     private String token;
     private SharedPreferences sharedPreferences;
     private DatabaseReference friendReference;
@@ -73,13 +73,12 @@ public class SearchFriendActivity extends AppCompatActivity {
             friendReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                        {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             User friend = dataSnapshot.getValue(User.class);
                             listFriend.add(new User(friend.getId(), friend.getNick_name(), friend.getAvatar()));
                             adapter1.notifyDataSetChanged();
-                            showFriendReference =FirebaseDatabase.getInstance().getReference("Users");
+                            showFriendReference = FirebaseDatabase.getInstance().getReference("Users");
                             showFriendReference.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,6 +92,7 @@ public class SearchFriendActivity extends AppCompatActivity {
                                         adapter1.notifyDataSetChanged();
                                     }
                                 }
+
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
                                 }
@@ -128,7 +128,7 @@ public class SearchFriendActivity extends AppCompatActivity {
         FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("nick_name")
-                                .startAt(s).endAt(s+"\uf8ff"), User.class)
+                                .startAt(s).endAt(s + "\uf8ff"), User.class)
                         .build();
         adpater2 = new SearchFriendAdapater2(options);
         adpater2.startListening();

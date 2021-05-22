@@ -11,6 +11,9 @@ import android.view.inputmethod.InputMethodManager;
 import com.example.pet.mode.models.User;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class Utils {
@@ -50,6 +53,11 @@ public class Utils {
             screenWidth = size.x;
         }
         return screenWidth;
+    }
+
+    public static String getCurrentDate(){
+        SimpleDateFormat sf1 = new SimpleDateFormat("dd-MM-yyyy");
+        return sf1.format(Calendar.getInstance().getTime());
     }
 //    public static String getUserInfor(Activity activity) {
 //        sharedPreferences = activity.getSharedPreferences("login", Context.MODE_PRIVATE);

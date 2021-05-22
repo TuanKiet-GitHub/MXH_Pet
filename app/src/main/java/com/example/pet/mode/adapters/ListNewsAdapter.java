@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -31,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyViewHolder> {
     private Context context;
@@ -38,17 +41,14 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     ItemListNewsBinding mBinding;
     ImageListNewAdapter adapter;
     CommentAdapter commentAdapter;
-
-    String day;
+    Animation animation;
     DatabaseReference databaseReference;
-    int like = 0;
     int click = 0;
 
 
-    public ListNewsAdapter(Context context, ArrayList<New> list, String day) {
+    public ListNewsAdapter(Context context, ArrayList<New> list) {
         this.context = context;
         this.list = list;
-        this.day = day;
     }
 
     @NonNull
@@ -73,27 +73,32 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
 
     private void getListImages(int position, MyViewHolder holder) {
         ArrayList<Image> listImage = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("News").child(day).child(list.get(position).getId()).child("list_image");
+        Log.e("TAG", "getListImages: "+ list.size());
+        if (list != null){
+            databaseReference = FirebaseDatabase.getInstance().getReference("News").child(list.get(position).getId()).child("list_image");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
+                    for (DataSnapshot s : snapshot.getChildren()) {
+                        listImage.add(new Image(s.getValue(String.class)));
+                    }
+                    adapter = new ImageListNewAdapter(context, listImage);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+                    holder.mBinding.rcvListImage.setLayoutManager(linearLayoutManager);
+                    holder.mBinding.rcvListImage.setAdapter(adapter);
 
-                for (DataSnapshot s : snapshot.getChildren()) {
-                    listImage.add(new Image(s.getValue(String.class)));
                 }
-                adapter = new ImageListNewAdapter(context, listImage);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-                holder.mBinding.rcvListImage.setLayoutManager(linearLayoutManager);
-                holder.mBinding.rcvListImage.setAdapter(adapter);
 
-            }
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.e("Loi", "onCancelled: " + error.getMessage());
+                }
+            });
+        }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.e("Loi", "onCancelled: " + error.getMessage());
-            }
-        });
+
+
 
 
     }
@@ -168,17 +173,49 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
             itemView.heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (like == 0) {
-                        like = 1;
+                    click = click == 0 ? 1 : 0;
+                    if (click == 1) {
                         Glide.with(context)
                                 .load(R.drawable.heartdo)
                                 .into(mBinding.heart);
+                        addToFavorite();
+//                       AnimationUtils.loadAnimation(context, R.anim.fly_heart);
+//                       mBinding.heart.setAnimation(animation);
                     } else {
-                        like = 0;
                         Glide.with(context)
                                 .load(R.drawable.heartden)
                                 .into(mBinding.heart);
                     }
+                }
+
+                private void addToFavorite() {
+                    String token = Utils.getToken((Activity) context);
+                    databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+
+                    databaseReference.child("favorite_posts").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                            boolean temp = true;
+                            if (snapshot.exists()){
+                                for (DataSnapshot s: snapshot.getChildren()) {
+                                    if(getAdapterPosition()!= -1){
+                                        if (s.getValue(String.class).equals(list.get(getAdapterPosition()).getId())){
+                                            temp = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if(temp){
+                                databaseReference.child("favorite_posts").push().setValue(list.get(getAdapterPosition()).getId());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    });
                 }
             });
 
@@ -193,7 +230,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
                         itemView.edtComment.requestFocus();
 
                     }
-                   // getListComment(list.get(getAdapterPosition()).getId());
+                    // getListComment(list.get(getAdapterPosition()).getId());
                 }
             });
 

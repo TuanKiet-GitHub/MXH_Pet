@@ -72,16 +72,16 @@ public class MainPageFragment extends Fragment {
             SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy");
             String date = sf.format(Calendar.getInstance().getTime());
 
-            listNews = getListNew("21-05-2021");
+            listNews = getListNew();
         }
 
         return mBinding.getRoot();
     }
 
-    private ArrayList<New> getListNew(String day) {
+    private ArrayList<New> getListNew() {
         ArrayList<New> listNews = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("News").child(day);
+        reference = FirebaseDatabase.getInstance().getReference("News");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,12 +91,11 @@ public class MainPageFragment extends Fragment {
                     for (DataSnapshot s : snapshot.getChildren()) {
 
                         New news = s.getValue(New.class);
-
+                        Log.e("TAG", "onDataChange: "+ news.getId());
                         listNews.add(news);
 
                     }
-
-                    adapter = new ListNewsAdapter(getContext(), listNews, day);
+                    adapter = new ListNewsAdapter(getContext(), listNews);
                     mBinding.rcvListNew.setLayoutManager(new LinearLayoutManager(getContext()));
                     mBinding.rcvListNew.setAdapter(adapter);
                 }
