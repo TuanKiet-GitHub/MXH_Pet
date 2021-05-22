@@ -3,9 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mode.home.MainPageFragment">
-
+    <RelativeLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="@color/silver"
+        android:background="@drawable/custom_button"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <EditText
+            android:backgroundTint="@color/black"
+            android:id="@+id/search_friendFragment"
+            android:textColor="@color/black"
+            android:hint="Search Friend"
+            android:textColorHint="@color/silverText"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+        <ImageButton
+            android:id="@+id/imgSearchFragment"
+            android:padding="5dp"
+            android:background="@color/silver"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/search_01"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </RelativeLayout>
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChat"
