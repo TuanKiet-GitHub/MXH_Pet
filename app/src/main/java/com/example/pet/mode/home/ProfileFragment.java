@@ -1,5 +1,6 @@
 package com.example.pet.mode.home;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,17 +11,21 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.FragmentProfileBinding;
 import com.example.pet.mode.activities.LoginActivity;
+import com.example.pet.mode.activities.UpdatePassActivity;
 import com.example.pet.mode.models.User;
 import com.example.pet.mode.utils.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,13 +50,14 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private DatabaseReference databaseReference;
-
+    LinearLayout linerPassWord , linerInformation;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private User user;
     FragmentProfileBinding mBinding;
     private String token;
     private String TAG = "";
+    private int check ;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -79,6 +85,64 @@ public class ProfileFragment extends Fragment {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             startActivity(intent);
+        });
+        mBinding.seeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(getContext());
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.setting_dialog);
+                LinearLayout linearPassword = dialog.findViewById(R.id.linerPassword);
+                LinearLayout linearInformation = dialog.findViewById(R.id.linerInformation);
+                ImageView imgPass = dialog.findViewById(R.id.imgPassword);
+                ImageView imgInformation = dialog.findViewById(R.id.imgInformation);
+                LinearLayout linerCannel = dialog.findViewById(R.id.linerBtnCannel);
+                LinearLayout linerDone = dialog.findViewById(R.id.linerBtnDone);
+                linearPassword.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                //        Log.e("C", "Click Password");
+                        imgPass.setVisibility(View.VISIBLE);
+                        check  = 0 ;
+                        imgInformation.setVisibility(View.INVISIBLE);
+                    }
+                });
+                linearInformation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      //  Log.e("C", "Click Information");
+                        imgPass.setVisibility(View.INVISIBLE);
+                        imgInformation.setVisibility(View.VISIBLE);
+                        check = 1 ;
+                    }
+                });
+                linerCannel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+
+                    }
+                });
+                linerDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(check == 0 )
+                        {
+
+                            Intent intent = new Intent(getActivity(), UpdatePassActivity.class);
+                            dialog.cancel();
+                            startActivity(intent);
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                });
+                dialog.show();
+
+            }
         });
         mBinding.chooseAvatar.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);

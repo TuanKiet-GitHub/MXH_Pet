@@ -147,7 +147,19 @@
             android:layout_marginEnd="8dp"
             android:background="@color/my_statusbar_color" />
 
+        <Button
 
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorButton"
+            android:text="Settings"
+            android:layout_below="@id/viewLine3"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:id="@+id/seeting"/>
         <Button
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -156,7 +168,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorButton"
             android:text="Log out"
-            android:layout_below="@id/viewLine3"
+            android:layout_below="@id/seeting"
             android:layout_centerHorizontal="true"
             android:textColor="@color/black"
             android:id="@+id/logout"/>

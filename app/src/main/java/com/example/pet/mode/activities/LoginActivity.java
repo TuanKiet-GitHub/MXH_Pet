@@ -35,6 +35,7 @@ public class LoginActivity extends BaseActivity {
     private ActivityLoginBinding loginBinding;
     private SharedPreferences sharedPreferences;
     private String TAG = "Login";
+    //public static String savePassWord = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class LoginActivity extends BaseActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         assert user != null;
                         editor.putString("token", user.getUid());
+                        editor.putString("password", passWord);
                         //saveInformUser(user.getUid());
                         editor.apply();
                         Intent intent = new Intent(getApplication(), HomeActivity.class);
