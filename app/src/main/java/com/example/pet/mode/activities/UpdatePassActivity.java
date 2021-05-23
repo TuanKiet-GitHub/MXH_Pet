@@ -2,7 +2,6 @@ package com.example.pet.mode.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
+
 
 
 public class UpdatePassActivity extends AppCompatActivity {
@@ -69,6 +69,10 @@ public class UpdatePassActivity extends AppCompatActivity {
                 user.updatePassword(newPassWord).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        sharedPreferences = getApplication().getSharedPreferences("login", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("password", newPassWord);
+                        editor.apply();
                      //   getFragmentManager().beginTransaction().add(R.id.fragmentUpdatePass , new SuccessFragment()).commit();
                         Toast.makeText(getApplicationContext(), "UPDATE PASSWORD SUCCESS !!! ", Toast.LENGTH_SHORT).show();
                         new Handler().postDelayed(() -> {
@@ -87,12 +91,9 @@ public class UpdatePassActivity extends AppCompatActivity {
         edCurrentPass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
             @Override
             public void afterTextChanged(Editable s) {
