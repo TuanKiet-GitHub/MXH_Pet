@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +51,7 @@ public class MessageActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private String token;
     FirebaseUser userid;
+    private int listMessage;
     ValueEventListener seenListener ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +107,15 @@ public class MessageActivity extends AppCompatActivity {
                 edSendMessage.setText("");
             }
         });
+        //                Log.e("Click", "Click");
+
+        edSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                                Log.e("Click", "Click");
+                 checkKeyBroard(listMessage);
+            }
+        });
 
     }
     private void sendMessage(String sender, String receiver, String message)
@@ -112,7 +126,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("status", "Sent");
-        Log.e("seen", "VAO Deliveed");
+        Log.e("seen", "VAO Sent");
         reference.child("Chats").push().setValue(hashMap);
     }
     private void seenMessage (final String iDReceiver)
@@ -161,6 +175,8 @@ public class MessageActivity extends AppCompatActivity {
                         list.add(message);
                     }
                     adapter = new MessageAdapter(MessageActivity.this , list , imgUrl);
+                    listMessage = list.size()-1;
+                    recyclerView.scrollToPosition(listMessage);
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -177,6 +193,26 @@ public class MessageActivity extends AppCompatActivity {
         HashMap<String , Object> hashMap = new HashMap<>();
         hashMap.put("status", status);
         reference.updateChildren(hashMap);
+    }
+    private void checkKeyBroard(int size)
+    {
+        final View view = findViewById(R.id.RelativeLayoutMessage);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                view.getWindowVisibleDisplayFrame(r);
+                int heightDiff = view.getRootView().getHeight() - r.height();
+                if (heightDiff > 0.25*view.getRootView().getHeight())
+                {
+                    if(size>0)
+                    {
+                        recyclerView.scrollToPosition(size);
+                        view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                }
+            }
+        });
     }
     @Override
     protected void onPause() {
