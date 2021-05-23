@@ -26,6 +26,7 @@ import com.example.pet.R;
 import com.example.pet.databinding.FragmentProfileBinding;
 import com.example.pet.mode.activities.LoginActivity;
 import com.example.pet.mode.activities.UpdatePassActivity;
+import com.example.pet.mode.activities.Update_Info_Activity;
 import com.example.pet.mode.models.User;
 import com.example.pet.mode.utils.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -136,7 +137,9 @@ public class ProfileFragment extends Fragment {
                         }
                         else
                         {
-
+                            Intent intent = new Intent(getActivity(), Update_Info_Activity.class);
+                            dialog.cancel();
+                            startActivity(intent);
                         }
                     }
                 });
