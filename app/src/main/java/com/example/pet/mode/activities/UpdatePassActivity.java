@@ -69,7 +69,10 @@ public class UpdatePassActivity extends AppCompatActivity {
                 user.updatePassword(newPassWord).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                     //   getFragmentManager().beginTransaction().add(R.id.fragmentUpdatePass , new SuccessFragment()).commit();
+                        sharedPreferences = getApplication().getSharedPreferences("login", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("password", newPassWord);
+                        editor.apply();
                         Toast.makeText(getApplicationContext(), "UPDATE PASSWORD SUCCESS !!! ", Toast.LENGTH_SHORT).show();
                         new Handler().postDelayed(() -> {
                             finish();
