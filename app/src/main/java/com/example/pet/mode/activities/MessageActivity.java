@@ -100,6 +100,7 @@ public class MessageActivity extends AppCompatActivity {
                 if (!mess.equals(""))
                 {
                     sendMessage(userChat.getTokenSender(), userChat.getId() ,mess);
+                    updateLastMessage(userChat.getTokenSender(), userChat.getId(), mess);
                 }
                 else
                 {
@@ -140,7 +141,7 @@ public class MessageActivity extends AppCompatActivity {
                 {
                     Message message = dataSnapshot.getValue(Message.class);
                     // token là người gửi.
-                    Log.e("L","Receiver"+ message.getReceiver() + " | sender " + message.getSender() + " | " + message.getStatus()+ "token" + token );
+               //     Log.e("L","Receiver"+ message.getReceiver() + " | sender " + message.getSender() + " | " + message.getStatus()+ "token" + token );
                       if(message.getReceiver().equals(iDReceiver))
                       {
                           HashMap<String , Object> hashMap = new HashMap<>();
@@ -213,6 +214,14 @@ public class MessageActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void updateLastMessage(String iDSender , String iDReceiver, String message)
+    {
+        HashMap<String , Object> hashMap = new HashMap<>();
+        hashMap.put("lastMessage", message);
+        reference.child("Users").child(iDSender).child("listFriends").child(iDReceiver).getRef().updateChildren(hashMap);
+        reference.child("Users").child(iDReceiver).child("listFriends").child(iDSender).getRef().updateChildren(hashMap);
     }
     @Override
     protected void onPause() {
