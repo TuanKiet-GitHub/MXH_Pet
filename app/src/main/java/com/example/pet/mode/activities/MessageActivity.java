@@ -141,7 +141,9 @@ public class MessageActivity extends AppCompatActivity {
                 {
                     Message message = dataSnapshot.getValue(Message.class);
                     // token là người gửi.
-                   // Log.e("L","Receiver"+ message.getReceiver() + " | sender " + message.getSender() + " | " + message.getStatus()+ "token" + token );
+
+
+
                       if(message.getReceiver().equals(iDReceiver))
                       {
                           HashMap<String , Object> hashMap = new HashMap<>();
