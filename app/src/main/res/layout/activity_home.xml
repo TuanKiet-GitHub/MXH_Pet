@@ -14,54 +14,60 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorWhite"
             android:orientation="vertical"
             android:weightSum="10">
 
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/text" />
+
+
+            <ImageButton
+                android:id="@+id/btn_search_friend"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/linear"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/search" />
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="9"
-                android:background="@color/colorWhite"
-                android:orientation="vertical">
+                android:id="@+id/linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:focusable="true"
+                >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-50dp"
-                    android:padding="10dp"
-                    android:src="@drawable/text" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="end"
-                    android:layout_marginTop="-45dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/chuong" />
 
-                    <ImageButton
-                        android:id="@+id/btn_search_friend"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/search" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="end"
-                        android:layout_marginLeft="20dp"
-                        android:src="@drawable/chuong" />
-                </LinearLayout>
-
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="-15dp"
+                    android:text="1"
+                    android:id="@+id/request_friend"
+                    android:gravity="center"
+                    android:background="@drawable/custom_notification" />
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/linerBottom"
