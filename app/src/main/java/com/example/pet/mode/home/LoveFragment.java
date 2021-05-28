@@ -67,7 +67,7 @@ public class LoveFragment extends Fragment {
                                     list.add(snapshot.getValue(New.class));
 
 
-                                    adapter = new ListNewsAdapter(getContext(), list);
+                                    adapter = new ListNewsAdapter(getContext(), list, ListNewsAdapter.FRAGMENT_LOVE);
                                     binding.recyclerViewLove.setLayoutManager(new LinearLayoutManager(getContext()));
                                     binding.recyclerViewLove.setAdapter(adapter);
                                 }

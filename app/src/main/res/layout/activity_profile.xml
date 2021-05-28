@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <variable
             name="user"
             type="com.example.pet.mode.models.User" />
     </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".mode.home.ProfileMakeFriendFragment">
+        tools:context=".mode.activities.ProfileActivity">
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/back"
-            android:background="@android:color/transparent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="5dp"
-            android:onClick="Back"/>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorButton"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/back" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:text="User Information"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/back" />
+        </androidx.appcompat.widget.Toolbar>
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"
+            setThumbnail="@{user.avatar"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="100dp"
             android:src="@drawable/bg_login" />
 
-<!--        <ImageView-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_below="@id/avatar"-->
-<!--            android:layout_marginStart="-40dp"-->
-<!--            android:layout_marginTop="-30dp"-->
-<!--            android:layout_toEndOf="@+id/avatar"-->
-<!--            android:clickable="true"-->
-<!--            android:focusable="true"-->
-<!--            android:id="@+id/choose_avatar"-->
-<!--            android:src="@drawable/ic_add_picture" />-->
-
         <TextView
-            android:id="@+id/tv_username"
+            android:id="@+id/tv_username_friend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/avatar"
@@ -58,7 +70,7 @@
             android:id="@+id/tv_nick_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_username"
+            android:layout_below="@id/tv_username_friend"
             android:layout_centerHorizontal="true"
             android:maxLines="1"
             android:text="@{user.nick_name}"
@@ -77,20 +89,21 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/viewLine"
+            android:id="@+id/viewLine_friend"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/tv_gender"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
+
             android:background="@color/my_statusbar_color" />
 
         <TextView
             android:id="@+id/tv_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/viewLine"
+            android:layout_below="@id/viewLine_friend"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="10dp"
             android:maxLines="1"
@@ -98,7 +111,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/viewLine1"
+            android:id="@+id/viewLine1_friend"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/tv_year"
@@ -111,7 +124,7 @@
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/viewLine1"
+            android:layout_below="@id/viewLine1_friend"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="10dp"
             android:maxLines="1"
@@ -119,7 +132,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/viewLine2"
+            android:id="@+id/viewLine2_friend"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/tv_address"
@@ -132,7 +145,7 @@
             android:id="@+id/tv_phoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/viewLine2"
+            android:layout_below="@id/viewLine2_friend"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="10dp"
             android:maxLines="1"
@@ -140,7 +153,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/viewLine3"
+            android:id="@+id/viewLine3_friend"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/tv_phoneNumber"
@@ -151,24 +164,18 @@
 
 
         <Button
-            android:layout_width="200dp"
+            android:id="@+id/btn_send_request_make_friend"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:text="Send Request"
-            android:layout_below="@id/viewLine3"
+            android:layout_below="@id/viewLine3_friend"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:paddingHorizontal="20dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/black"
-            android:id="@+id/SendRequest"/>
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
             android:background="@color/colorButton"
-            android:text="Decline Request"
-            android:layout_below="@id/SendRequest"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
-            android:id="@+id/DeclineRequest"/>
+            android:text="@string/request_make_friend"
+            android:textColor="@color/black" />
+
     </RelativeLayout>
 
 </layout>

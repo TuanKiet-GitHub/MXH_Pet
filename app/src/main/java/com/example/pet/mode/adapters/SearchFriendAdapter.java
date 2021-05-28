@@ -1,7 +1,7 @@
 package com.example.pet.mode.adapters;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pet.R;
+import com.example.pet.mode.activities.ProfileActivity;
 import com.example.pet.mode.home.ProfileFriendFragment;
-import com.example.pet.mode.home.ProfileMakeFriendFragment;
 import com.example.pet.mode.models.User;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -81,13 +78,11 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<SearchFriendAdapte
 
         @Override
         public void onClick(View v) {
-            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-            Fragment myFragment = new ProfileFriendFragment();
             s = listUser.get(getAdapterPosition()).getId();
-            Bundle bundle = new Bundle();
-            bundle.putString("id", s);
-            myFragment.setArguments(bundle);
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frame_search_friend, myFragment).addToBackStack(null).commit();
+            Intent intent = new Intent(context, ProfileActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("id_friend", s);
+            context.startActivity(intent);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.pet.mode.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -12,26 +13,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.pet.R;
 import com.example.pet.mode.home.LoveFragment;
 import com.example.pet.mode.home.MessageFragment;
 import com.example.pet.mode.home.ProfileFragment;
 import com.example.pet.mode.home.MainPageFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btnSquare , btnLove , btnMessage , btnProfile , btnHome;
-    LinearLayout linerSquare , linearLove , linerMessage , linerProfile ;
-    Fragment fragment ;
+    Button btnSquare, btnLove, btnMessage, btnProfile, btnHome;
+    LinearLayout linerSquare, linearLove, linerMessage, linerProfile, linear;
+    Fragment fragment;
+    TextView notification;
     ImageButton btn_search_friend;
     private SharedPreferences sharedPreferences;
     private DatabaseReference reference;
     private String token;
-    public static String status ;
+    public static String status;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +57,31 @@ public class HomeActivity extends AppCompatActivity {
         linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
         Event();
 
+        linear.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, AcceptFriendRequestActivity.class);
+            startActivity(intent);
+        });
+
+        try {
+            reference = FirebaseDatabase.getInstance().getReference("Users").child(token).child("list_request_friend");
+            reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                notification.setText(snapshot.getChildrenCount() +"");
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        }catch (Exception e){}
+
     }
 
     // region ANH XA
-    void anhxa()
-    {
+    void anhxa() {
         btnProfile = findViewById(R.id.btnProfile);
         btnLove = findViewById(R.id.btnLove);
         btnMessage = findViewById(R.id.btnMessage);
@@ -60,14 +90,14 @@ public class HomeActivity extends AppCompatActivity {
         linearLove = findViewById(R.id.linerLove);
         linerMessage = findViewById(R.id.linerMessage);
         linerProfile = findViewById(R.id.linerProfile);
-        btn_search_friend = (ImageButton)findViewById(R.id.btn_search_friend);
-
+        btn_search_friend = (ImageButton) findViewById(R.id.btn_search_friend);
+        linear = findViewById(R.id.linear);
+        notification = findViewById(R.id.request_friend);
     }
     // endregion
 
     // region  SỰ KIỆN CHUYỂN FRAMENT
-    void Event()
-    {
+    void Event() {
 
         btnSquare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,12 +175,11 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-
     }
-    private void status (String status)
-    {
+
+    private void status(String status) {
         reference = FirebaseDatabase.getInstance().getReference("Users").child(token);
-        HashMap<String , Object> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("status", status);
         reference.updateChildren(hashMap);
     }

@@ -14,9 +14,13 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pet">
-        <activity android:name=".mode.activities.Update_Info_Activity"></activity>
+        <activity android:name=".mode.activities.AcceptFriendRequestActivity"></activity>
+        <activity android:name=".mode.activities.ProfileActivity" />
+        <activity android:name=".mode.activities.Update_Info_Activity" />
         <activity android:name=".mode.activities.UpdatePassActivity" />
-        <activity android:name=".mode.activities.SearchFriendActivity" />
+        <activity android:name=".mode.activities.SearchFriendActivity">
+
+        </activity>
         <activity android:name=".mode.activities.MessageActivity" />
         <activity android:name=".mode.activities.RegisterActivity2" />
         <activity

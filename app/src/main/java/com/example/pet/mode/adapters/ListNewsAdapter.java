@@ -39,13 +39,16 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
     ImageListNewAdapter adapter;
     CommentAdapter commentAdapter;
     DatabaseReference databaseReference;
-    int like = 0;
+    public static int FRAGMENT_LOVE = 1;
+    public static int FRAGMENT_NEW = 0;
+    int type;
     int click = 0;
 
 
-    public ListNewsAdapter(Context context, ArrayList<New> list) {
+    public ListNewsAdapter(Context context, ArrayList<New> list, int type) {
         this.context = context;
         this.list = list;
+        this.type = type;
     }
 
     @NonNull
@@ -65,6 +68,8 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
         String token = list.get(position).getUser_id();
         getUser(token, holder);
         getListComment(list.get(position).getId(), holder);
+
+
 
     }
 
@@ -162,53 +167,59 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
             this.mBinding = itemView;
             recyclerView = itemView.rcvListImage;
             rc = itemView.rcrComment;
-            itemView.heart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    click = click == 0 ? 1 : 0;
-                    if (click == 1) {
-                        Glide.with(context)
-                                .load(R.drawable.heartdo)
-                                .into(mBinding.heart);
-                        addToFavorite();
-                    } else {
-                        Glide.with(context)
-                                .load(R.drawable.heartden)
-                                .into(mBinding.heart);
+            if(type == FRAGMENT_NEW){
+                itemView.heart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        click = click == 0 ? 1 : 0;
+                        if (click == 1) {
+                            Glide.with(context)
+                                    .load(R.drawable.heartdo)
+                                    .into(mBinding.heart);
+                            addToFavorite();
+                        } else {
+                            Glide.with(context)
+                                    .load(R.drawable.heartden)
+                                    .into(mBinding.heart);
+                        }
                     }
-                }
 
-                private void addToFavorite() {
-                    String token = Utils.getToken((Activity) context);
-                    databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+                    private void addToFavorite() {
+                        String token = Utils.getToken((Activity) context);
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
 
-                    databaseReference.child("favorite_posts").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            boolean temp = true;
-                            if (snapshot.exists()) {
-                                for (DataSnapshot s : snapshot.getChildren()) {
-                                    if (getAdapterPosition() != -1) {
-                                        if (s.getValue(String.class).equals(list.get(getAdapterPosition()).getId())) {
-                                            temp = false;
-                                            break;
+                        databaseReference.child("favorite_posts").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                boolean temp = true;
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot s : snapshot.getChildren()) {
+                                        if (getAdapterPosition() != -1) {
+                                            if (s.getValue(String.class).equals(list.get(getAdapterPosition()).getId())) {
+                                                temp = false;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
+                                if (temp) {
+                                    databaseReference.child("favorite_posts").push().setValue(list.get(getAdapterPosition()).getId());
+                                }
                             }
-                            if (temp) {
-                                databaseReference.child("favorite_posts").push().setValue(list.get(getAdapterPosition()).getId());
+
+                            @Override
+                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
                             }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                        }
-                    });
-                }
-            });
-
+                        });
+                    }
+                });
+            }
+            if (type == FRAGMENT_LOVE){
+                Glide.with(context)
+                        .load(R.drawable.heartdo)
+                        .into(mBinding.heart);
+            }
             itemView.comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
