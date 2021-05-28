@@ -20,8 +20,11 @@ import com.example.pet.R;
 import com.example.pet.databinding.FragmentProfileBinding;
 import com.example.pet.mode.adapters.UserChatAdapter;
 import com.example.pet.mode.models.Friend;
+import com.example.pet.mode.models.Message;
 import com.example.pet.mode.models.User;
 import com.example.pet.mode.models.UserChat;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MessageFragment extends Fragment {
     ArrayList<UserChat> listChat ;
@@ -48,6 +52,7 @@ public class MessageFragment extends Fragment {
     private StorageReference storageReference;
     FragmentProfileBinding mBinding;
     EditText edSearchFriend ;
+    ValueEventListener seenListener ;
     public MessageFragment() {
         // Required empty public constructor
     }
@@ -60,6 +65,7 @@ public class MessageFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "1");
         edSearchFriend = view.findViewById(R.id.search_friendFragment);
+     //   seenMessage(FirebaseAuth.getInstance().getCurrentUser().getUid());
         listFriend = new ArrayList<>();
         listChat = new ArrayList<>();
         adapter = new UserChatAdapter(getContext(), listChat);
@@ -81,6 +87,7 @@ public class MessageFragment extends Fragment {
                 SearchFriend(nick_name);
             }
         });
+        seenMessage(FirebaseAuth.getInstance().getCurrentUser().getUid());
         return view;
     }
     private void SearchFriend(String s)
@@ -156,5 +163,44 @@ public class MessageFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+    private void seenMessage (final String iDReceiver)
+    {
+        // Log.e("seen", "VAO");
+        friendReference = FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener = friendReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Message message = dataSnapshot.getValue(Message.class);
+                    // token là người gửi.
+                    Log.e("MessageFragment","Receiver"+ message.getReceiver() + " | sender " + message.getSender() + " | " + message.getStatus()+ "token" + token );
+                    if(message.getReceiver().equals(iDReceiver))
+                    {
+                        HashMap<String , Object> hashMap = new HashMap<>();
+//                          Log.e("seen", "VAO Seen");
+                        hashMap.put("status", "Received");
+                        dataSnapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        friendReference.removeEventListener(seenListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

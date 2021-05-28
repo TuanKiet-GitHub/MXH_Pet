@@ -96,6 +96,7 @@ public class MessageActivity extends AppCompatActivity {
         imgSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String mess =  edSendMessage.getText().toString().trim() ;
                 if (!mess.equals(""))
                 {
@@ -112,8 +113,8 @@ public class MessageActivity extends AppCompatActivity {
         edSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                                Log.e("Click", "Click");
-                 checkKeyBroard(listMessage);
+//                                Log.e("Click", "Click");
+                                 checkKeyBroard(listMessage);
             }
         });
 
@@ -126,12 +127,12 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("status", "Sent");
-        Log.e("seen", "VAO Sent");
+//        Log.e("seen", "VAO Sent");
         reference.child("Chats").push().setValue(hashMap);
     }
     private void seenMessage (final String iDReceiver)
     {
-        Log.e("seen", "VAO");
+       // Log.e("seen", "VAO");
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         seenListener = reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -140,12 +141,12 @@ public class MessageActivity extends AppCompatActivity {
                 {
                     Message message = dataSnapshot.getValue(Message.class);
                     // token là người gửi.
-                    Log.e("L","Receiver"+ message.getReceiver() + " | sender " + message.getSender() + " | " + message.getStatus()+ "token" + token );
+                   // Log.e("L","Receiver"+ message.getReceiver() + " | sender " + message.getSender() + " | " + message.getStatus()+ "token" + token );
                       if(message.getReceiver().equals(iDReceiver))
                       {
                           HashMap<String , Object> hashMap = new HashMap<>();
-                          Log.e("seen", "VAO Seen");
-                          hashMap.put("status", "Received");
+//                          Log.e("seen", "VAO Seen");
+                          hashMap.put("status", "Watched");
                           dataSnapshot.getRef().updateChildren(hashMap);
                       }
                 }
@@ -168,7 +169,7 @@ public class MessageActivity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     Message message = dataSnapshot.getValue(Message.class);
-                    Log.e("ReadMessage", message.getStatus());
+//                    Log.e("ReadMessage", message.getStatus());
                     if (message.getReceiver().equals(id) && message.getSender().equals(userId)
                             || message.getReceiver().equals(userId) && message.getSender().equals(id))
                     {

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +21,8 @@ import com.example.pet.mode.home.LoveFragment;
 import com.example.pet.mode.home.MessageFragment;
 import com.example.pet.mode.home.ProfileFragment;
 import com.example.pet.mode.home.MainPageFragment;
+import com.example.pet.mode.models.Message;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         token = sharedPreferences.getString("token", "1");
         // Mới vào thì home Fragment xuất hiện đầu tiên
         fragment = new MainPageFragment();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,
                 fragment).commit();
         btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong01), null, null);

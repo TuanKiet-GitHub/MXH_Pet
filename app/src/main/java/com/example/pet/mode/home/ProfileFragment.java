@@ -27,6 +27,7 @@ import com.example.pet.databinding.FragmentProfileBinding;
 import com.example.pet.mode.activities.LoginActivity;
 import com.example.pet.mode.activities.UpdatePassActivity;
 import com.example.pet.mode.activities.Update_Info_Activity;
+import com.example.pet.mode.models.Message;
 import com.example.pet.mode.models.User;
 import com.example.pet.mode.utils.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,6 +45,7 @@ import com.google.gson.Gson;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -59,6 +61,7 @@ public class ProfileFragment extends Fragment {
     private String token;
     private String TAG = "";
     private int check ;
+    ValueEventListener seenListener ;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -72,7 +75,7 @@ public class ProfileFragment extends Fragment {
         token = Utils.getToken(getActivity());
 
         getUser(token);
-
+        seenMessage(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         mBinding.logout.setOnClickListener(v -> {
             sharedPreferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -216,5 +219,43 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+    }
+    private void seenMessage (final String iDReceiver)
+    {
+        // Log.e("seen", "VAO");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Message message = dataSnapshot.getValue(Message.class);
+                    // token là người gửi.
+                     Log.e("Log", "ProfileFragment" );
+                    if(message.getReceiver().equals(iDReceiver))
+                    {
+                        HashMap<String , Object> hashMap = new HashMap<>();
+//                          Log.e("seen", "VAO Seen");
+                        hashMap.put("status", "Received");
+                        dataSnapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        databaseReference.removeEventListener(seenListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

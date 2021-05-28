@@ -11,167 +11,177 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".mode.home.ProfileFragment">
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_border_width="1dp"
-            android:id="@+id/avatar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/bg_login" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/avatar"
-            android:layout_marginStart="-40dp"
-            android:layout_marginTop="-30dp"
-            android:layout_toEndOf="@+id/avatar"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/choose_avatar"
-            android:src="@drawable/ic_add_picture" />
-
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/avatar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:maxLines="1"
-            android:text="@{user.full_name}"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/tv_nick_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_username"
-            android:layout_centerHorizontal="true"
-            android:maxLines="1"
-            android:text="@{user.nick_name}"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/viewLine5"
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginBottom="30dp"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_nick_name"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/my_statusbar_color" />
-        <TextView
-            android:id="@+id/tv_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_nick_name"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="30dp"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    app:civ_border_width="1dp"
+                    android:id="@+id/avatar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/bg_login" />
 
-        <TextView
-            android:id="@+id/viewLine"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_gender"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/my_statusbar_color" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/avatar"
+                    android:layout_marginStart="-40dp"
+                    android:layout_marginTop="-30dp"
+                    android:layout_toEndOf="@+id/avatar"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/choose_avatar"
+                    android:src="@drawable/ic_add_picture" />
 
-        <TextView
-            android:id="@+id/tv_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewLine"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="10dp"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/avatar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:maxLines="1"
+                    android:text="@{user.full_name}"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/viewLine1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_year"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/my_statusbar_color" />
+                <TextView
+                    android:id="@+id/tv_nick_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_username"
+                    android:layout_centerHorizontal="true"
+                    android:maxLines="1"
+                    android:text="@{user.nick_name}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/viewLine5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_nick_name"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/my_statusbar_color" />
+                <TextView
+                    android:id="@+id/tv_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_nick_name"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginTop="30dp"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewLine1"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="10dp"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/viewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_gender"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/my_statusbar_color" />
 
-        <TextView
-            android:id="@+id/viewLine2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_address"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/my_statusbar_color" />
+                <TextView
+                    android:id="@+id/tv_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewLine"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_phoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewLine2"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="10dp"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/viewLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_year"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/my_statusbar_color" />
 
-        <TextView
-            android:id="@+id/viewLine3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_phoneNumber"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/my_statusbar_color" />
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewLine1"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-        <Button
+                <TextView
+                    android:id="@+id/viewLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_address"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/my_statusbar_color" />
 
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:text="Settings"
-            android:layout_below="@id/viewLine3"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
-            android:id="@+id/seeting"/>
-        <Button
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:text="Log out"
-            android:layout_below="@id/seeting"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/black"
-            android:id="@+id/logout"/>
+                <TextView
+                    android:id="@+id/tv_phoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewLine2"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/viewLine3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_phoneNumber"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/my_statusbar_color" />
+
+                <Button
+
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorButton"
+                    android:text="Settings"
+                    android:layout_below="@id/viewLine3"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:id="@+id/seeting"/>
+                <Button
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorButton"
+                    android:text="Log out"
+                    android:layout_below="@id/seeting"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:id="@+id/logout"/>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
     </RelativeLayout>
 
 </layout>

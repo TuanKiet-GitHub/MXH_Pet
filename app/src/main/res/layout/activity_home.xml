@@ -25,6 +25,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="-40dp"
                 android:padding="10dp"
                 android:src="@drawable/text" />
 
@@ -40,6 +41,7 @@
                 android:src="@drawable/search" />
 
             <LinearLayout
+                android:layout_marginTop="20dp"
                 android:id="@+id/linear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,6 +52,7 @@
                 >
 
                 <ImageView
+                    android:padding="1dp"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="end"
