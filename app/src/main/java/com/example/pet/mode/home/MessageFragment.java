@@ -44,6 +44,7 @@ public class MessageFragment extends Fragment {
     private DatabaseReference friendReference;
     private DatabaseReference showFriendReference;
     public ArrayList<Friend> listFriend ;
+    private ArrayList<UserChat>  listOn , listOff ;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     FragmentProfileBinding mBinding;
@@ -63,8 +64,21 @@ public class MessageFragment extends Fragment {
         listFriend = new ArrayList<>();
         listChat = new ArrayList<>();
         adapter = new UserChatAdapter(getContext(), listChat);
+        adapter.notifyDataSetChanged();
         if (!token.equals("1")) {
-           loadFriendMessage();
+            friendReference = FirebaseDatabase.getInstance().getReference().child("Users").child(token).child("listFriends");
+            friendReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    loadFriendMessage();
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+
         }
         edSearchFriend.addTextChangedListener(new TextWatcher() {
             @Override
@@ -98,7 +112,6 @@ public class MessageFragment extends Fragment {
                         if(!user.getId().equals(token))
                         {
                             listChat.add(new UserChat(token, user.getId(), user.getAvatar(), user.getNick_name(), "HiHi", user.getStatus()));
-
                         }
                         adapter.notifyDataSetChanged();
                     }
@@ -116,6 +129,13 @@ public class MessageFragment extends Fragment {
         });
         recyclerView.setAdapter(adapter);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadFriendMessage();
+    }
+
     private void loadFriendMessage()
     {
         friendReference = FirebaseDatabase.getInstance().getReference("Users").child(token).child("listFriends");
@@ -131,6 +151,7 @@ public class MessageFragment extends Fragment {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 User user = snapshot.getValue(User.class);
+
                                 for ( int i = 0 ; i < listChat.size() ; i ++)
                                 {
                                     if (user.getId().equals(listChat.get(i).getId()))
@@ -138,6 +159,7 @@ public class MessageFragment extends Fragment {
                                         listChat.remove(i);
                                     }
                                 }
+
                               //  Log.e("friend", user.getId() + "|" + user.getNick_name()  + " | " + friend.getLastMessage()  + "|"+ user.getAvatar());
                                 listChat.add(new UserChat(token,user.getId() , user.getAvatar(), user.getNick_name() , friend.getLastMessage(), user.getStatus()));
                                 //  Log.e("friend", listChat.get(0).getLastMessage());
@@ -156,5 +178,6 @@ public class MessageFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
     }
 }
