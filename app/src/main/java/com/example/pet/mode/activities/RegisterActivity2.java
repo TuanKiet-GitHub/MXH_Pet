@@ -17,6 +17,7 @@ import com.example.pet.R;
 import com.example.pet.databinding.ActivityRegister2Binding;
 import com.example.pet.mode.models.User;
 import com.example.pet.mode.utils.CheckDataUtil;
+import com.example.pet.mode.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -51,6 +52,9 @@ public class RegisterActivity2 extends BaseActivity {
             public void onClick(View v) {
                 onBackPressed();
             }
+        });
+        mBinding.layoutSecondRegister.setOnClickListener(v -> {
+            Utils.hideSoftKeyboard(RegisterActivity2.this);
         });
     }
 
@@ -88,6 +92,8 @@ public class RegisterActivity2 extends BaseActivity {
                                 });
 
                             } else {
+                                mBinding.pbRegisterSecond.setVisibility(View.GONE);
+                                enableTouchScreen();
                                 Toast.makeText(RegisterActivity2.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -128,29 +134,29 @@ public class RegisterActivity2 extends BaseActivity {
     private boolean checkInformation() {
 
         if (email.isEmpty()) {
-            Toast.makeText(this, "Email không thể rỗng", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_SHORT).show();
             mBinding.etEmail.requestFocus();
             return false;
         } else if (!CheckDataUtil.checkEmail(email)) {
-            Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
             mBinding.etEmail.requestFocus();
             return false;
         } else if (password.isEmpty()) {
-            Toast.makeText(this, "Mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_SHORT).show();
             mBinding.etPassword.requestFocus();
             return false;
         } else if (password.length() < 7) {
-            Toast.makeText(this, "Mật khẩu phải hơn 7 ký tự", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password must be more than 7 characters", Toast.LENGTH_SHORT).show();
             mBinding.etPassword.setText("");
             mBinding.etPassword.requestFocus();
             return false;
         } else if (!confirmPassword.equals(password)) {
-            Toast.makeText(this, "Mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Your password not match", Toast.LENGTH_SHORT).show();
             mBinding.etConfirmPassword.setText("");
             mBinding.etConfirmPassword.requestFocus();
             return false;
         } else if (!phoneNumber.isEmpty() && !CheckDataUtil.checkPhone(phoneNumber)) {
-            Toast.makeText(this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid phone number", Toast.LENGTH_SHORT).show();
             mBinding.etPhoneNumber.requestFocus();
             return false;
         }

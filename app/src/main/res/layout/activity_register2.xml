@@ -68,7 +68,7 @@
                 style="@style/etViewLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:lines="1"
                 android:layout_below="@+id/tv_pass_register"
                 android:inputType="textPassword"
                 android:maxLength="50"
@@ -90,7 +90,7 @@
                 style="@style/etViewLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:lines="1"
                 android:layout_below="@+id/tv_confirm_pass"
                 android:inputType="textPassword"
                 android:maxLength="50"
@@ -112,7 +112,7 @@
                 style="@style/etViewLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:lines="1"
                 android:layout_below="@+id/tv_phoneNumber"
                 android:inputType="phone"
                 android:maxLength="13"
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:indeterminateTint="#FFFFFF"
+                android:indeterminateTint="#0151B3"
                 android:progressDrawable="@drawable/circle"
                 android:visibility="gone" />
             <Button

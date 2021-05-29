@@ -59,7 +59,7 @@ public class AcceptFriendRequestActivity extends AppCompatActivity {
                 }
             });
 
-        }catch (Exception e){}
+        }catch (Exception ignored){}
 
     }
 
@@ -77,6 +77,7 @@ public class AcceptFriendRequestActivity extends AppCompatActivity {
                     for (DataSnapshot s : snapshot.getChildren()) {
                         String temp = s.getKey();
                         Log.e("TAG", "onDataChange: " + temp);
+                        assert temp != null;
                         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(temp);
                         reference1.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -105,7 +106,7 @@ public class AcceptFriendRequestActivity extends AppCompatActivity {
 
                 }
             });
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
