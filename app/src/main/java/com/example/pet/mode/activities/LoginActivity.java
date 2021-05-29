@@ -53,13 +53,14 @@ public class LoginActivity extends BaseActivity {
         loginBinding.edtEmail.setOnFocusChangeListener((view, b) -> loginBinding.edtEmail.setHint(""));
 
         loginBinding.btnLogin.setOnClickListener(v -> {
+
             if (checkEmailPassword()) {
                 String email = loginBinding.edtEmail.getText().toString().trim();
                 String passWord = loginBinding.edtPassword.getText().toString().trim();
                 mAuth.signInWithEmailAndPassword(email, passWord).addOnCompleteListener(task -> {
                     disableTouchScreen();
                     loginBinding.pbRegisterSecond.setVisibility(View.VISIBLE);
-
+                    Log.e(TAG, "onCreate: "+ "kkkk" );
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         SharedPreferences.Editor editor = sharedPreferences.edit();

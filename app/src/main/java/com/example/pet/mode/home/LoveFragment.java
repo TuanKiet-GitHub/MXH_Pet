@@ -30,7 +30,6 @@ import java.util.ArrayList;
 
 public class LoveFragment extends Fragment {
 
-    private RecyclerView recyclerView;
     private FragmentLoveBinding binding;
     private ListNewsAdapter adapter;
     private DatabaseReference reference;
@@ -53,41 +52,43 @@ public class LoveFragment extends Fragment {
         ArrayList<String> listFavorite = new ArrayList<>();
         if (getActivity() != null) {
             String token = Utils.getToken(getActivity());
-            reference = FirebaseDatabase.getInstance().getReference("Users").child(token).child("favorite_posts");
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                    listFavorite.clear();
-                    if (snapshot.exists()) {
-                        for (DataSnapshot s : snapshot.getChildren()) {
-                            reference = FirebaseDatabase.getInstance().getReference("News").child(s.getValue(String.class));
-                            reference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                    list.add(snapshot.getValue(New.class));
+            try {
+                reference = FirebaseDatabase.getInstance().getReference("Users").child(token).child("favorite_posts");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        listFavorite.clear();
+                        if (snapshot.exists()) {
+                            for (DataSnapshot s : snapshot.getChildren()) {
+                                reference = FirebaseDatabase.getInstance().getReference("News").child(s.getValue(String.class));
+                                reference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                        list.add(snapshot.getValue(New.class));
 
 
-                                    adapter = new ListNewsAdapter(getContext(), list, ListNewsAdapter.FRAGMENT_LOVE);
-                                    binding.recyclerViewLove.setLayoutManager(new LinearLayoutManager(getContext()));
-                                    binding.recyclerViewLove.setAdapter(adapter);
-                                }
+                                        adapter = new ListNewsAdapter(getContext(), list, ListNewsAdapter.FRAGMENT_LOVE);
+                                        binding.recyclerViewLove.setLayoutManager(new LinearLayoutManager(getContext()));
+                                        binding.recyclerViewLove.setAdapter(adapter);
+                                    }
 
-                                @Override
-                                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-                                }
-                            });
+                                    }
+                                });
+                            }
+
+
                         }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
                     }
-                }
-
-                @Override
-                public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                }
-            });
+                });
+            }catch (Exception e){}
         }
 
     }

@@ -69,84 +69,88 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.MyView
         getUser(token, holder);
         getListComment(list.get(position).getId(), holder);
 
-
-
     }
 
     private void getListImages(int position, MyViewHolder holder) {
         ArrayList<Image> listImage = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("News").child(list.get(position).getId()).child("list_image");
+       try{
+           databaseReference = FirebaseDatabase.getInstance().getReference("News").child(list.get(position).getId()).child("list_image");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
+           databaseReference.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(DataSnapshot snapshot) {
 
-                for (DataSnapshot s : snapshot.getChildren()) {
-                    listImage.add(new Image(s.getValue(String.class)));
-                }
-                adapter = new ImageListNewAdapter(context, listImage);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-                holder.mBinding.rcvListImage.setLayoutManager(linearLayoutManager);
-                holder.mBinding.rcvListImage.setAdapter(adapter);
+                   for (DataSnapshot s : snapshot.getChildren()) {
+                       listImage.add(new Image(s.getValue(String.class)));
+                   }
+                   adapter = new ImageListNewAdapter(context, listImage);
+                   LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+                   holder.mBinding.rcvListImage.setLayoutManager(linearLayoutManager);
+                   holder.mBinding.rcvListImage.setAdapter(adapter);
 
-            }
+               }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.e("Loi", "onCancelled: " + error.getMessage());
-            }
-        });
+               @Override
+               public void onCancelled(DatabaseError error) {
+                   Log.e("Loi", "onCancelled: " + error.getMessage());
+               }
+           });
 
+       }catch (Exception e){};
 
     }
 
     private void getUser(String token, MyViewHolder holder) {
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
+       try{
+           databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
+           databaseReference.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                   User user = snapshot.getValue(User.class);
 
-                holder.mBinding.setUser(user);
-            }
+                   holder.mBinding.setUser(user);
+               }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+               @Override
+               public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            }
-        });
+               }
+           });
 
+       }catch (Exception e){}
     }
 
     private void getListComment(String idNew, MyViewHolder holder) {
         ArrayList<Comment> comments = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Comments").child(idNew);
+        try {
+            databaseReference = FirebaseDatabase.getInstance().getReference("Comments").child(idNew);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                comments.clear();
-                for (DataSnapshot s : snapshot.getChildren()
-                ) {
-                    Comment comment = s.getValue(Comment.class);
-                    comments.add(comment);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    comments.clear();
+                    for (DataSnapshot s : snapshot.getChildren()
+                    ) {
+                        Comment comment = s.getValue(Comment.class);
+                        comments.add(comment);
+                    }
+                    commentAdapter = new CommentAdapter(context, comments);
+                    commentAdapter.notifyDataSetChanged();
+                    holder.mBinding.rcrComment.setAdapter(commentAdapter);
+                    holder.mBinding.rcrComment.setLayoutManager(new LinearLayoutManager(context));
+                    holder.mBinding.rcrComment.setHasFixedSize(true);
+                    holder.mBinding.rcrComment.setNestedScrollingEnabled(false);
+
                 }
-                commentAdapter = new CommentAdapter(context, comments);
-                commentAdapter.notifyDataSetChanged();
-                holder.mBinding.rcrComment.setAdapter(commentAdapter);
-                holder.mBinding.rcrComment.setLayoutManager(new LinearLayoutManager(context));
-                holder.mBinding.rcrComment.setHasFixedSize(true);
-                holder.mBinding.rcrComment.setNestedScrollingEnabled(false);
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                Log.e("TAG", "onCancelled: " + error.getMessage());
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                    Log.e("TAG", "onCancelled: " + error.getMessage());
+                }
+            });
+        }catch (Exception e){}
 
 
     }
