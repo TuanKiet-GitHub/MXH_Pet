@@ -27,27 +27,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
-import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btnSquare, btnLove, btnMessage, btnProfile, btnHome;
+    Button btnSquare, btnLove, btnMessage, btnProfile;
     LinearLayout linerSquare, linearLove, linerMessage, linerProfile, linear;
     Fragment fragment;
     TextView notification;
     ImageButton btn_search_friend;
-    private SharedPreferences sharedPreferences;
+
     private DatabaseReference reference;
     private String token;
     public static String status;
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         anhxa();
-        sharedPreferences = getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "1");
         // Mới vào thì home Fragment xuất hiện đầu tiên
         fragment = new MainPageFragment();
@@ -65,9 +64,13 @@ public class HomeActivity extends AppCompatActivity {
         try {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(token).child("list_request_friend");
             reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                notification.setText(snapshot.getChildrenCount() +"");
+                if (snapshot.getChildrenCount() > 0 ){
+                    notification.setVisibility(View.VISIBLE);
+                    notification.setText(snapshot.getChildrenCount() +"");
+                }else notification.setVisibility(View.GONE);
             }
 
             @Override
@@ -76,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        }catch (Exception e){}
+        }catch (Exception ignored){}
 
     }
 
@@ -90,88 +93,73 @@ public class HomeActivity extends AppCompatActivity {
         linearLove = findViewById(R.id.linerLove);
         linerMessage = findViewById(R.id.linerMessage);
         linerProfile = findViewById(R.id.linerProfile);
-        btn_search_friend = (ImageButton) findViewById(R.id.btn_search_friend);
+        btn_search_friend = findViewById(R.id.btn_search_friend);
         linear = findViewById(R.id.linear);
         notification = findViewById(R.id.request_friend);
     }
     // endregion
 
     // region  SỰ KIỆN CHUYỂN FRAMENT
+    @SuppressLint("UseCompatLoadingForDrawables")
     void Event() {
 
-        btnSquare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong01), null, null);
-                linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
-                linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message2), null, null);
-                btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim), null, null);
-                btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi), null, null);
+        btnSquare.setOnClickListener(v -> {
+            btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong01), null, null);
+            linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
+            linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message2), null, null);
+            btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim), null, null);
+            btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi), null, null);
 
-                fragment = new MainPageFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame,
-                        fragment).commit();
-            }
+            fragment = new MainPageFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame,
+                    fragment).commit();
         });
-        btnLove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim01), null, null);
-                linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
-                linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message2), null, null);
-                btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong), null, null);
-                btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi), null, null);
-                fragment = new LoveFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame,
-                        fragment).commit();
-            }
+        btnLove.setOnClickListener(v -> {
+            btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim01), null, null);
+            linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
+            linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message2), null, null);
+            btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong), null, null);
+            btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi), null, null);
+            fragment = new LoveFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame,
+                    fragment).commit();
         });
-        btnMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message1), null, null);
-                linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
-                linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong), null, null);
-                btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim), null, null);
-                btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi), null, null);
-                fragment = new MessageFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame,
-                        fragment).commit();
-            }
+        btnMessage.setOnClickListener(v -> {
+            btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message1), null, null);
+            linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
+            linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong), null, null);
+            btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim), null, null);
+            btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi), null, null);
+            fragment = new MessageFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame,
+                    fragment).commit();
         });
-        btnProfile.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("UseCompatLoadingForDrawables")
-            @Override
-            public void onClick(View v) {
-                btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi01), null, null);
-                linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
-                linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
-                btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message2), null, null);
-                btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong), null, null);
-                btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim), null, null);
-                fragment = new ProfileFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame,
-                        fragment).commit();
-            }
+        btnProfile.setOnClickListener(v -> {
+            btnProfile.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.nguoi01), null, null);
+            linerProfile.setBackgroundColor(getApplication().getResources().getColor(R.color.yello));
+            linearLove.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linerSquare.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            linerMessage.setBackgroundColor(getApplication().getResources().getColor(R.color.white));
+            btnMessage.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.message2), null, null);
+            btnSquare.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.vuong), null, null);
+            btnLove.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.tim), null, null);
+            fragment = new ProfileFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame,
+                    fragment).commit();
         });
-        btn_search_friend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, SearchFriendActivity.class));
+        btn_search_friend.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, SearchFriendActivity.class));
 //                Toast.makeText(HomeActivity.this, "Test", Toast.LENGTH_SHORT).show();
 //                Log.e("C", "Click");
-            }
         });
 
 

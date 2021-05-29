@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/white"
-        android:gravity="center"
         android:clickable="true"
-        android:id="@+id/layout"
+        android:gravity="center"
+        android:orientation="vertical"
         tools:context=".mode.activities.LoginActivity">
-      <include
-          layout="@layout/logo"
-          android:id="@+id/logo"/>
+
+        <include
+            android:id="@+id/logo"
+            layout="@layout/logo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/logo"
             android:layout_marginTop="40dp"
             android:background="#F6F9FA"
             android:gravity="center"
-            android:layout_below="@id/logo"
             android:orientation="vertical">
 
             <TextView
@@ -42,34 +43,27 @@
                 android:layout_marginEnd="20dp"
                 android:background="@color/white"
                 android:hint="@string/email"
-                android:text="thien@gmail.com"
+                android:inputType="text"
                 android:paddingStart="10dp"
+                android:text="thien@gmail.com"
                 android:textColor="@color/blue_text"
-                android:textColorHint="@color/silverText"/>
+                android:textColorHint="@color/silverText" />
 
-
-                <EditText
-                    android:id="@+id/edt_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@color/white"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:paddingLeft="10dp"
-                    android:text="123456789"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/blue_text"
-                    android:textColorHint="@color/silverText"/>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/forgot_password"
-                android:textColor="@color/blue_text" />
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/white"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:paddingLeft="10dp"
+                android:text="123456789"
+                android:textColor="@color/blue_text"
+                android:textColorHint="@color/silverText" />
 
             <Button
                 android:id="@+id/btn_login"
@@ -77,27 +71,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/custom_nut_dangnhap"
-                android:text="@string/Login"
                 android:backgroundTint="@color/yellowmain"
+                android:text="@string/Login"
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/registration"
-                android:textColor="@color/link_text"
                 android:layout_marginTop="10dp"
-                android:id="@+id/tv_register"
-               />
+                android:text="@string/registration"
+                android:textColor="@color/link_text" />
 
         </LinearLayout>
+
         <ProgressBar
             android:id="@+id/pbRegisterSecond"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:indeterminateTint="#FFFFFF"
+            android:indeterminateTint="#0151B3"
             android:progressDrawable="@drawable/circle"
             android:visibility="gone" />
 

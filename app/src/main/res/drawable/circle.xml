@@ -4,6 +4,6 @@
     android:innerRadiusRatio="2.5"
     android:thickness="4dp"
     android:useLevel="true">
-    <solid android:color="@color/colorTextLogin"></solid>
+    <solid android:color="#0066FF"></solid>
 
 </shape>

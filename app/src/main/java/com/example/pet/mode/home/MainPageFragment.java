@@ -109,7 +109,7 @@ public class MainPageFragment extends Fragment {
 
                 if (getActivity() != null) {
                     Glide.with((getActivity()))
-                            .load(user.getAvatar())
+                            .load(user.getAvatar()).placeholder(R.drawable.bg_login)
                             .into(mBinding.avatar);
                 }
             }

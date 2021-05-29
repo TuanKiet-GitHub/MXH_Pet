@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ import java.util.Locale;
 public class RegistrationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     ActivityRegistrationBinding registrationBinding;
     private Calendar calendar;
-    private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +41,11 @@ public class RegistrationActivity extends AppCompatActivity implements DatePicke
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog dialog = new DatePickerDialog(this, R.style.CustomDatePickerDialogTheme, this, year, month, day);
-        dialog.setTitle("Chọn ngày sinh");
+        dialog.setTitle("Day of birth");
         dialog.show();
     }
     public void clickNext(View view) {
-
+        Intent intent;
         if (validationInputData()) {
             intent = new Intent(RegistrationActivity.this, RegisterActivity2.class);
             Bundle bundle = new Bundle();
@@ -60,18 +59,19 @@ public class RegistrationActivity extends AppCompatActivity implements DatePicke
         }
     }
     public boolean validationInputData() {
-        if (registrationBinding.etFullName.getText().length() == 0) {
-            Toast.makeText(this, "Bạn chưa nhập họ và tên", Toast.LENGTH_SHORT).show();
+
+        if (registrationBinding.etFullName.getText().toString().trim().length() == 0) {
+            Toast.makeText(this, "You have not entered your name", Toast.LENGTH_SHORT).show();
             registrationBinding.etFullName.requestFocus();
             return false;
-        }else if (registrationBinding.etNickName.getText().length() == 0)
+        }else if (registrationBinding.etNickName.getText().toString().trim().length() == 0)
         {
-            Toast.makeText(this, "Bạn chưa nhập tên hiển thị", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You have not entered your nickname", Toast.LENGTH_SHORT).show();
             registrationBinding.etNickName.requestFocus();
             return false;
-        } else if (registrationBinding.etAddress.getText().length() == 0)
+        } else if (registrationBinding.etAddress.getText().toString().trim().length() == 0)
         {
-            Toast.makeText(this, "Bạn chưa nhập họ và tên", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You have not entered your address", Toast.LENGTH_SHORT).show();
             registrationBinding.etAddress.requestFocus();
             return false;
         }

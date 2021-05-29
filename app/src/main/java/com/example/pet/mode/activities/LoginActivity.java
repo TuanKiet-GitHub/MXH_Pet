@@ -1,7 +1,6 @@
 package com.example.pet.mode.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
@@ -9,17 +8,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.pet.R;
 import com.example.pet.databinding.ActivityLoginBinding;
 import com.example.pet.mode.models.User;
 import com.example.pet.mode.utils.Utils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,8 +28,7 @@ public class LoginActivity extends BaseActivity {
     private FirebaseAuth mAuth;
     private ActivityLoginBinding loginBinding;
     private SharedPreferences sharedPreferences;
-    private String TAG = "Login";
-    //public static String savePassWord = "";
+    private final String TAG = "Login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +77,7 @@ public class LoginActivity extends BaseActivity {
 
         });
 
-        loginBinding.tvRegister.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
-        });
+        loginBinding.tvRegister.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RegistrationActivity.class)));
 
         loginBinding.layout.setOnClickListener(v -> Utils.hideSoftKeyboard(LoginActivity.this));
     }
@@ -105,26 +96,5 @@ public class LoginActivity extends BaseActivity {
         }
         return true;
     }
-
-    public void saveInformUser(String token) {
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(token);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                String userInfor = new Gson().toJson(user);
-
-                editor.putString("user_infor", userInfor);
-                editor.apply();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "onCancelled: "+ error.getMessage() );
-            }
-        });
-    }
+    
 }
