@@ -89,7 +89,7 @@ public class AcceptFriendRequestAdapter extends RecyclerView.Adapter<AcceptFrien
             reference = FirebaseDatabase.getInstance().getReference("Users").child(users.get(getAdapterPosition()).getId())
                     .child("listFriends").child(token);
 
-            reference.child("id").setValue(users.get(getAdapterPosition()).getId())
+            reference.child("id").setValue(token)
                     .addOnCompleteListener(
                             task -> Toast.makeText(context, "You have accepted the friend request", Toast.LENGTH_LONG).show());
             reference.child("lastMessage").setValue("Ban Da tro thanh ban");
