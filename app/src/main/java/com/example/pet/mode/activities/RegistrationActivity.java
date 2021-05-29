@@ -56,7 +56,6 @@ public class RegistrationActivity extends AppCompatActivity implements DatePicke
             bundle.putString("address", registrationBinding.etAddress.getText().toString());
             bundle.putBoolean("isMale", registrationBinding.rbMale.isChecked());
             intent.putExtra("data", bundle);
-
             startActivity(intent);
         }
     }
@@ -64,6 +63,16 @@ public class RegistrationActivity extends AppCompatActivity implements DatePicke
         if (registrationBinding.etFullName.getText().length() == 0) {
             Toast.makeText(this, "Bạn chưa nhập họ và tên", Toast.LENGTH_SHORT).show();
             registrationBinding.etFullName.requestFocus();
+            return false;
+        }else if (registrationBinding.etNickName.getText().length() == 0)
+        {
+            Toast.makeText(this, "Bạn chưa nhập tên hiển thị", Toast.LENGTH_SHORT).show();
+            registrationBinding.etNickName.requestFocus();
+            return false;
+        } else if (registrationBinding.etAddress.getText().length() == 0)
+        {
+            Toast.makeText(this, "Bạn chưa nhập họ và tên", Toast.LENGTH_SHORT).show();
+            registrationBinding.etAddress.requestFocus();
             return false;
         }
         return true;

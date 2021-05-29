@@ -39,8 +39,6 @@ public class RegisterActivity2 extends BaseActivity {
     private HashMap<String, String> userInfor;
     private SharedPreferences sharedPreferences;
     private Button btPrevious;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +55,6 @@ public class RegisterActivity2 extends BaseActivity {
     }
 
     public void clickRegister(View v) {
-
         getUser();
         mAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -77,7 +74,6 @@ public class RegisterActivity2 extends BaseActivity {
                                 editor.putString("token", mUser.getUid());
                                 editor.putString("user_infor", new Gson().toJson(userInfor));
                                 editor.apply();
-
                                 reference.child(mUser.getUid()).setValue(userInfor).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
