@@ -86,7 +86,9 @@ public class MainPageFragment extends Fragment {
                     }
 
                     adapter = new ListNewsAdapter(getContext(), listNews, ListNewsAdapter.FRAGMENT_NEW);
-                    mBinding.rcvListNew.setLayoutManager(new LinearLayoutManager(getContext()));
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    linearLayoutManager.setReverseLayout(true);
+                    mBinding.rcvListNew.setLayoutManager(linearLayoutManager);
                     mBinding.rcvListNew.setAdapter(adapter);
                 }
             }
