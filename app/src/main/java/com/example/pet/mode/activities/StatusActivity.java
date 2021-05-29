@@ -283,6 +283,7 @@ public class StatusActivity extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 Glide.with(getApplicationContext())
                         .load(user.getAvatar())
+                        .placeholder(R.drawable.bg_login)
                         .into(statusBinding.avatar);
                 statusBinding.name.setText(user.getNick_name());
             }

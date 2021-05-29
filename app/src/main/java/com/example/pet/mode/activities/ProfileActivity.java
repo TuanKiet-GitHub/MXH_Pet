@@ -58,13 +58,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         String temp = binding.btnSendRequestMakeFriend.getText().toString();
         if (temp.equals("Request Make Friend")) {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
-            databaseReference.child("list_request_friend").child(id_friend).setValue("true");
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(id_friend);
+            databaseReference.child("list_request_friend").child(token).setValue("true");
             Toast.makeText(this, "Sent a request make friend.", Toast.LENGTH_SHORT).show();
             setButton("Cancelling friend request", Color.WHITE, Color.GRAY);
         } else {
-            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(token);
-            databaseReference.child("list_request_friend").child(id_friend).removeValue();
+            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(id_friend);
+            databaseReference.child("list_request_friend").child(token).removeValue();
             Toast.makeText(this, "Cancelling friend request", Toast.LENGTH_SHORT).show();
             setButton(getResources().getString(R.string.request_make_friend), Color.BLACK, getResources().getColor(R.color.colorButton));
         }
