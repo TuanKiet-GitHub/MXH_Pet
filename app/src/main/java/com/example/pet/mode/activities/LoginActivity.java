@@ -46,13 +46,13 @@ public class LoginActivity extends BaseActivity {
         loginBinding.edtEmail.setOnFocusChangeListener((view, b) -> loginBinding.edtEmail.setHint(""));
 
         loginBinding.btnLogin.setOnClickListener(v -> {
+
             if (checkEmailPassword()) {
                 String email = loginBinding.edtEmail.getText().toString().trim();
                 String passWord = loginBinding.edtPassword.getText().toString().trim();
                 mAuth.signInWithEmailAndPassword(email, passWord).addOnCompleteListener(task -> {
                     disableTouchScreen();
                     loginBinding.pbRegisterSecond.setVisibility(View.VISIBLE);
-
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity {
                     } else {
                         enableTouchScreen();
                         loginBinding.pbRegisterSecond.setVisibility(View.GONE);
-                        Toast.makeText(LoginActivity.this, "Mật khẩu hoặc tài khoản không chính xác", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Password or email incorrect !!", Toast.LENGTH_LONG).show();
                     }
                 });
             } else {
@@ -86,11 +86,11 @@ public class LoginActivity extends BaseActivity {
         String email = loginBinding.edtEmail.getText().toString().trim();
         String passWord = loginBinding.edtPassword.getText().toString().trim();
         if (email.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Mật khẩu không được bỏ trống !!! ", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Email cannot be empty !!!", Toast.LENGTH_LONG).show();
             loginBinding.edtEmail.requestFocus();
             return false;
         } else if (passWord.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Mật khẩu không được bỏ trống !!! ", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Password cannot be empty !!!", Toast.LENGTH_LONG).show();
             loginBinding.edtPassword.requestFocus();
             return false;
         }

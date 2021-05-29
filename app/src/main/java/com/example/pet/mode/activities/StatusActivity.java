@@ -263,8 +263,7 @@ public class StatusActivity extends AppCompatActivity {
                     taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
-                            databaseReference.child(key_date + "/" + id_new).child("list_image").push().setValue(uri.toString());
+                            databaseReference.child(id_new).child("list_image").push().setValue(uri.toString());
                         }
                     });
 

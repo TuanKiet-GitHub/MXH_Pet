@@ -53,7 +53,8 @@ public class MainPageFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false);
         mBinding.linerStatus.setOnClickListener(v -> startActivity(new Intent(getActivity(), StatusActivity.class)));
         token = Utils.getToken(getActivity());
-        seenMessage(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+       // seenMessage(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         if (!token.equals("1")) {
             getUser(token);
@@ -85,7 +86,9 @@ public class MainPageFragment extends Fragment {
                     }
 
                     adapter = new ListNewsAdapter(getContext(), listNews, ListNewsAdapter.FRAGMENT_NEW);
-                    mBinding.rcvListNew.setLayoutManager(new LinearLayoutManager(getContext()));
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                    linearLayoutManager.setReverseLayout(true);
+                    mBinding.rcvListNew.setLayoutManager(linearLayoutManager);
                     mBinding.rcvListNew.setAdapter(adapter);
                 }
             }
@@ -153,7 +156,7 @@ public class MainPageFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        reference.removeEventListener(seenListener);
+        // reference.removeEventListener(seenListener);
     }
 
     @Override
