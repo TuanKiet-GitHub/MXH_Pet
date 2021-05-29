@@ -85,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
                 binding.tvPhoneNumber.setText("Phone Number: " + user.getPhone_number());
                 binding.tvYear.setText("Day of Birth: " + user.getYear_born());
                 if (!user.getAvatar().equals("default") && getApplicationContext() != null) {
-                    Glide.with(ProfileActivity.this).load(Uri.parse(user.getAvatar()))
+                    Glide.with(getApplicationContext()).load(Uri.parse(user.getAvatar()))
                             .into(binding.avatar);
                 }
             }

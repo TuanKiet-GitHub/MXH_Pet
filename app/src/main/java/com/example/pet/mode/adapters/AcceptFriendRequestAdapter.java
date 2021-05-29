@@ -76,15 +76,31 @@ public class AcceptFriendRequestAdapter extends RecyclerView.Adapter<AcceptFrien
         }
 
         private void accept() {
+            DatabaseReference reference1, reference2;
+            //add to list friend
             reference = FirebaseDatabase.getInstance().getReference("Users").child(token)
                     .child("listFriends").child(users.get(getAdapterPosition()).getId());
             reference.child("id").setValue(users.get(getAdapterPosition()).getId())
                     .addOnCompleteListener(
                             task -> Toast.makeText(context, "You have accepted the friend request", Toast.LENGTH_LONG).show());
             reference.child("lastMessage").setValue("Ban Da tro thanh ban");
-            reference = FirebaseDatabase.getInstance().getReference("Users").child(token)
+
+            reference1 = FirebaseDatabase.getInstance().getReference("Users").child(users.get(getAdapterPosition()).getId())
+                    .child("listFriends").child(token);
+            reference1.child("id").setValue(token)
+                    .addOnCompleteListener(
+                            task -> Toast.makeText(context, "You have accepted the friend request", Toast.LENGTH_LONG).show());
+            reference1.child("lastMessage").setValue("Ban Da tro thanh ban");
+
+
+            reference2 = FirebaseDatabase.getInstance().getReference("Users").child(token)
                     .child("list_request_friend").child(users.get(getAdapterPosition()).getId());
-            reference.removeValue();
+            reference2.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull @NotNull Task<Void> task) {
+
+                }
+            });
         }
 
         private void deny() {
