@@ -30,19 +30,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (
-                ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.SEND_SMS) +
-                ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (
+                        ContextCompat.checkSelfPermission(MainActivity.this,
+                                Manifest.permission.SEND_SMS) +
+                                ContextCompat.checkSelfPermission(MainActivity.this,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
                             Manifest.permission.SEND_SMS) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setPositiveButton("", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setPositiveButton("", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(
+                                        MainActivity.this,
+                                        new String[]{
+                                                Manifest.permission.SEND_SMS,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                        },
+                                        REQUEST_CODE
+                                );
+                            }
+                        });
+                        builder.setNegativeButton("", null);
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }else {
                         ActivityCompat.requestPermissions(
                                 MainActivity.this,
                                 new String[]{
@@ -51,23 +69,17 @@ public class MainActivity extends AppCompatActivity {
                                 },
                                 REQUEST_CODE
                         );
-                    }
-                });
-                builder.setNegativeButton("", null);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }else {
-                ActivityCompat.requestPermissions(
-                        MainActivity.this,
-                        new String[]{
-                                Manifest.permission.SEND_SMS,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        },
-                        REQUEST_CODE
-                );
 
+                    }
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, MainPage.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
-        }
+        },2000);
+
     }
 
     @Override
