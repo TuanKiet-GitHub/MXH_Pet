@@ -80,7 +80,7 @@ public class ImageListNewAdapter extends RecyclerView.Adapter<ImageListNewAdapte
                     Gson gson = new Gson();
                     String temp = gson.toJson(listImage);
                     intent.putExtra("list_image", temp);
-
+                    intent.putExtra("position", getAdapterPosition());
                     context.startActivity(intent);
                 }
             });
