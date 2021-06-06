@@ -75,7 +75,7 @@ public class FullScreenActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String temp = intent.getStringExtra("list_image");
-
+        current = intent.getIntExtra("position", 0);
         Gson gson = new Gson();
         Type collectionType = new TypeToken<ArrayList<Image>>() {
         }.getType();
