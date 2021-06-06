@@ -1,6 +1,7 @@
 package com.example.pet.mode.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.pet.R;
 import com.example.pet.databinding.ItemListImageBinding;
+import com.example.pet.mode.activities.FullScreenActivity;
 import com.example.pet.mode.models.Image;
+import com.google.gson.Gson;
 
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ImageListNewAdapter extends RecyclerView.Adapter<ImageListNewAdapter.MyViewHolder>{
+public class ImageListNewAdapter extends RecyclerView.Adapter<ImageListNewAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<Image> listImage;
     ItemListImageBinding mBinding;
@@ -33,6 +36,7 @@ public class ImageListNewAdapter extends RecyclerView.Adapter<ImageListNewAdapte
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
     }
+
     public void setOnItemClickListener(ImageListNewAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
@@ -63,34 +67,25 @@ public class ImageListNewAdapter extends RecyclerView.Adapter<ImageListNewAdapte
         return listImage == null ? 0 : listImage.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         ItemListImageBinding imageBinding;
+
         public MyViewHolder(@NonNull @org.jetbrains.annotations.NotNull ItemListImageBinding mBinding) {
             super(mBinding.getRoot());
             imageBinding = mBinding;
             mBinding.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent(context, FullScreenActivity.class);
+                    Gson gson = new Gson();
+                    String temp = gson.toJson(listImage);
+                    intent.putExtra("list_image", temp);
 
+                    context.startActivity(intent);
                 }
             });
-
-//            mBinding.image.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.e("TAG", "onClick: click "  );
-//                    WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//                    int width = manager.getDefaultDisplay().getWidth();
-//                    int height = manager.getDefaultDisplay().getHeight();
-//                    imageBinding.image.getLayoutParams().height = height;
-//                    imageBinding.image.getLayoutParams().width = width;
-//                    imageBinding.image.setAdjustViewBounds(true);
-//                    imageBinding.image.setScaleType(ImageView.ScaleType.FIT_XY);
-//                }
-//            });
         }
     }
-
 
 
 }

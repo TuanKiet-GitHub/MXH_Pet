@@ -15,13 +15,13 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pet">
-        <activity android:name=".mode.activities.AcceptFriendRequestActivity"></activity>
+        <activity android:name=".mode.activities.FullScreenActivity"
+           />
+        <activity android:name=".mode.activities.AcceptFriendRequestActivity" />
         <activity android:name=".mode.activities.ProfileActivity" />
         <activity android:name=".mode.activities.Update_Info_Activity" />
         <activity android:name=".mode.activities.UpdatePassActivity" />
-        <activity android:name=".mode.activities.SearchFriendActivity">
-
-        </activity>
+        <activity android:name=".mode.activities.SearchFriendActivity"/>
         <activity android:name=".mode.activities.MessageActivity" />
         <activity android:name=".mode.activities.RegisterActivity2" />
         <activity
@@ -35,17 +35,16 @@
             android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".mode.activities.LoginActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.Design.NoActionBar"/>
         <activity
             android:name=".mode.activities.MainPage"
             android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".mode.activities.MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar" >
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
